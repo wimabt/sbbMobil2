@@ -29,6 +29,14 @@ echo "==> [2/6] Bağımlılıklar (pub get + pod install)"
 flutter pub get
 (cd ios && pod install --repo-update)
 
+echo "==> [2b/6] Pods betiklerine çalıştırma izni onarımı"
+# CocoaPods bazı XCFramework kopyalama betiklerini (örn. OneSignalXCFramework)
+# çalıştırılabilir bit olmadan üretebiliyor (bilinen pod-cache tuhaflığı) —
+# bu durumda Xcode "Permission denied" ile PhaseScriptExecution adımında durur.
+# Her `pod install` sonrası tüm .sh dosyalarını çalıştırılabilir yapmak
+# zararsız ve kalıcı bir önlem.
+find ios/Pods -name "*.sh" -exec chmod +x {} \;
+
 echo "==> [3/6] Ön kontrol: PERMISSION_CAMERA makrosu Pods projesine yazıldı mı?"
 if ! grep -q "PERMISSION_CAMERA=1" ios/Pods/Pods.xcodeproj/project.pbxproj; then
   echo "HATA: PERMISSION_CAMERA=1 Pods projesinde yok."
