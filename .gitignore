@@ -1,0 +1,107 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Obfuscate'li release build'lerin ayrılmış debug sembolleri
+# (build_release scriptleri buraya yazar — repoya girmez, ayrıca arşivlenir)
+/symbols/
+
+# Yerel çalışma artefaktları — kod tabanının parçası değil
+/unpacked/
+/index.html
+*.docx
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+ACTION_PLAN.md
+Flutter_Project_Plan.md
+TECHNICAL_AUDIT_REPORT.md
+MACBOOK_SETUP.md
+prod_log_audit.md
+PRODUCTION_ROADMAP.md
+RELEASE_SECURITY_REPORT.md
+.cursorrules
+AI_RULES.md
+docs/CACHING_STRATEGY.md
+docs/mobile_integ.md
+docs/staff_mobile.md
+docs/EVENTS_API_MOBILE_KULLANIM.md
+docs/LANGUAGE_MASTER_PLAN.md
+docs/STATIC_DATA_INTEGRATION_BLUEPRINT.md
+docs/MVP_GAP_ANALYSIS_AND_EXECUTION_BLUEPRINT.md
+
+# Platform-specific build
+/android/build/
+/ios/Pods/
+/ios/Runner.xcworkspace/xcuserdata/
+/macos/Pods/
+/macos/Runner.xcworkspace/xcuserdata/
+/linux/flutter/ephemeral/
+/windows/flutter/ephemeral/
+
+# VS Code workspace settings
+.vscode/
+
+# Android Studio / Xcode extras
+*.jks
+*.keystore
+/android/key.properties
+*.orig
+
+# Windows / OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Personal / temporary files
+*.tmp
+*.bak
+
+# Local config / secrets
+local.*.yaml
+.env
+.env.*
+
+# Flutter tool cache (optional, some are already covered above)
+.flutter-plugins
+.packages

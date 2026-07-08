@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Samsun City Guide - Geofence Test">
+  <metadata>
+    <name>Samsun Geofence Test Route</name>
+    <desc>Test route for OneSignal geofence triggers in Samsun districts</desc>
+    <author>
+      <name>Samsun Belediyesi</name>
+    </author>
+    <time>2026-02-07T12:00:00Z</time>
+  </metadata>
+  
+  <!-- Test Route: Samsun Merkez → Atakum → Kavak -->
+  <trk>
+    <name>Samsun District Tour</name>
+    <desc>Simulates a user driving through different districts</desc>
+    <trkseg>
+      
+      <!-- START: Samsun Merkez (Outside all geofences) -->
+      <trkpt lat="41.2867" lon="36.3361">
+        <ele>50</ele>
+        <time>2026-02-07T10:00:00Z</time>
+        <name>Samsun Merkez - Start</name>
+      </trkpt>
+      
+      <!-- Moving towards Atakum -->
+      <trkpt lat="41.3000" lon="36.3100">
+        <ele>45</ele>
+        <time>2026-02-07T10:02:00Z</time>
+      </trkpt>
+      
+      <trkpt lat="41.3100" lon="36.2900">
+        <ele>40</ele>
+        <time>2026-02-07T10:04:00Z</time>
+      </trkpt>
+      
+      <!-- ENTER: Atakum District Geofence -->
+      <trkpt lat="41.3200" lon="36.2800">
+        <ele>35</ele>
+        <time>2026-02-07T10:06:00Z</time>
+        <name>Atakum - Geofence Entry</name>
+        <desc>Should trigger "Atakum'a hoş geldiniz!" notification</desc>
+      </trkpt>
+      
+      <!-- Inside Atakum -->
+      <trkpt lat="41.3250" lon="36.2750">
+        <ele>30</ele>
+        <time>2026-02-07T10:08:00Z</time>
+      </trkpt>
+      
+      <trkpt lat="41.3300" lon="36.2700">
+        <ele>25</ele>
+        <time>2026-02-07T10:10:00Z</time>
+      </trkpt>
+      
+      <!-- EXIT: Atakum, heading to Kavak -->
+      <trkpt lat="41.4000" lon="36.2000">
+        <ele>100</ele>
+        <time>2026-02-07T10:20:00Z</time>
+        <name>Atakum - Geofence Exit</name>
+      </trkpt>
+      
+      <!-- Between districts -->
+      <trkpt lat="41.4500" lon="36.1500">
+        <ele>150</ele>
+        <time>2026-02-07T10:30:00Z</time>
+      </trkpt>
+      
+      <trkpt lat="41.4800" lon="36.1000">
+        <ele>180</ele>
+        <time>2026-02-07T10:40:00Z</time>
+      </trkpt>
+      
+      <!-- Approaching Kavak -->
+      <trkpt lat="41.5100" lon="36.0700">
+        <ele>200</ele>
+        <time>2026-02-07T10:50:00Z</time>
+      </trkpt>
+      
+      <!-- ENTER: Kavak District Geofence -->
+      <trkpt lat="41.5234" lon="36.0567">
+        <ele>220</ele>
+        <time>2026-02-07T11:00:00Z</time>
+        <name>Kavak - Geofence Entry</name>
+        <desc>Should trigger "Kavak'a hoş geldiniz!" notification</desc>
+      </trkpt>
+      
+      <!-- Inside Kavak -->
+      <trkpt lat="41.5250" lon="36.0550">
+        <ele>225</ele>
+        <time>2026-02-07T11:05:00Z</time>
+      </trkpt>
+      
+      <trkpt lat="41.5280" lon="36.0530">
+        <ele>230</ele>
+        <time>2026-02-07T11:10:00Z</time>
+      </trkpt>
+      
+      <!-- END: Stay in Kavak -->
+      <trkpt lat="41.5300" lon="36.0500">
+        <ele>235</ele>
+        <time>2026-02-07T11:15:00Z</time>
+        <name>Kavak - End</name>
+      </trkpt>
+      
+    </trkseg>
+  </trk>
+  
+  <!-- Waypoints for Geofence Centers (for reference) -->
+  <wpt lat="41.3200" lon="36.2800">
+    <name>Atakum Geofence Center</name>
+    <desc>Radius: 500m</desc>
+    <sym>City</sym>
+  </wpt>
+  
+  <wpt lat="41.5234" lon="36.0567">
+    <name>Kavak Geofence Center</name>
+    <desc>Radius: 500m</desc>
+    <sym>City</sym>
+  </wpt>
+  
+  <wpt lat="41.2867" lon="36.3361">
+    <name>Samsun Merkez</name>
+    <desc>City center - no geofence</desc>
+    <sym>City</sym>
+  </wpt>
+  
+</gpx>

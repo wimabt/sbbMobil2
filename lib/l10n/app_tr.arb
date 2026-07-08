@@ -1,0 +1,1541 @@
+{
+  "@@locale": "tr",
+  "@@author": "SBB Mobile Team",
+  "@@last_modified": "2026-02-03",
+
+  "appTitle": "Samsun Şehir Rehberi",
+  "@appTitle": {
+    "description": "Application title"
+  },
+
+  "navHome": "Ana Sayfa",
+  "@navHome": {
+    "description": "Bottom navigation: Home"
+  },
+
+  "navMap": "Harita",
+  "@navMap": {
+    "description": "Bottom navigation: Map"
+  },
+
+  "navPlaces": "Yerler",
+  "@navPlaces": {
+    "description": "Bottom navigation: Places"
+  },
+
+  "navAnnouncements": "Duyurular",
+  "@navAnnouncements": {
+    "description": "Bottom navigation: Announcements"
+  },
+
+  "navProfile": "Profil",
+  "@navProfile": {
+    "description": "Bottom navigation: Profile"
+  },
+
+  "navCulture": "Kültür",
+  "@navCulture": {
+    "description": "Bottom navigation: Culture"
+  },
+
+  "quickCampaigns": "Kampanyalar",
+  "@quickCampaigns": {
+    "description": "Quick access: Campaigns"
+  },
+
+  "quickRoutes": "Rotalar",
+  "@quickRoutes": {
+    "description": "Quick access: Routes"
+  },
+
+  "quickFood": "Yemekler",
+  "@quickFood": {
+    "description": "Quick access: Food/Recipes"
+  },
+
+  "quickEvents": "Etkinlikler",
+  "@quickEvents": {
+    "description": "Quick access: Events"
+  },
+
+  "quickArScanner": "AR Tarayıcı",
+  "@quickArScanner": {
+    "description": "Quick access: AR scanner"
+  },
+
+  "btnGetDirections": "Yol Tarifi",
+  "@btnGetDirections": {
+    "description": "Button: Get directions to a place"
+  },
+
+  "btnShowOnMap": "Haritada Göster",
+  "@btnShowOnMap": {
+    "description": "Button: Show location on map"
+  },
+
+  "btnShare": "Paylaş",
+  "@btnShare": {
+    "description": "Button: Share content"
+  },
+
+  "btnSave": "Kaydet",
+  "@btnSave": {
+    "description": "Button: Save"
+  },
+
+  "btnCancel": "İptal",
+  "@btnCancel": {
+    "description": "Button: Cancel action"
+  },
+
+  "btnClose": "Kapat",
+  "@btnClose": {
+    "description": "Button: Close modal or dialog"
+  },
+
+  "btnRetry": "Tekrar Dene",
+  "@btnRetry": {
+    "description": "Button: Retry failed action"
+  },
+
+  "btnViewAll": "Tümünü Gör",
+  "@btnViewAll": {
+    "description": "Button: View all items"
+  },
+
+  "btnApply": "Uygula",
+  "@btnApply": {
+    "description": "Button: Apply filters or settings"
+  },
+
+  "btnClearFilters": "Filtreleri Temizle",
+  "@btnClearFilters": {
+    "description": "Button: Clear all filters"
+  },
+
+  "btnLogout": "Çıkış Yap",
+  "@btnLogout": {
+    "description": "Button: Log out"
+  },
+
+  "btnLogin": "Giriş Yap",
+  "@btnLogin": {
+    "description": "Button: Log in"
+  },
+
+  "lblSearch": "Ara",
+  "@lblSearch": {
+    "description": "Label: Search"
+  },
+
+  "lblSearchPlaceholder": "Ara...",
+  "@lblSearchPlaceholder": {
+    "description": "Placeholder: Search input field"
+  },
+
+  "lblSearchPlaces": "Yer ara...",
+  "@lblSearchPlaces": {
+    "description": "Placeholder: Search places"
+  },
+
+  "lblSearchEvents": "Etkinlik ara...",
+  "@lblSearchEvents": {
+    "description": "Placeholder: Search events"
+  },
+
+  "lblSearchAnnouncements": "Duyurularda ara...",
+  "@lblSearchAnnouncements": {
+    "description": "Placeholder: Search announcements"
+  },
+
+  "lblSearchRoutes": "Rota ara...",
+  "@lblSearchRoutes": {
+    "description": "Placeholder: Search routes"
+  },
+
+  "lblSearchRecipes": "Tarif veya restoran ara...",
+  "@lblSearchRecipes": {
+    "description": "Placeholder: Search recipes or restaurants"
+  },
+
+  "lblDistance": "Mesafe",
+  "@lblDistance": {
+    "description": "Label: Distance"
+  },
+
+  "lblDistanceKm": "{distance} km",
+  "@lblDistanceKm": {
+    "description": "Distance in kilometers",
+    "placeholders": {
+      "distance": {
+        "type": "String",
+        "example": "2.5"
+      }
+    }
+  },
+
+  "lblAll": "Tümü",
+  "@lblAll": {
+    "description": "Label: All categories"
+  },
+
+  "lblFilter": "Filtrele",
+  "@lblFilter": {
+    "description": "Label: Filter"
+  },
+
+  "lblSort": "Sırala",
+  "@lblSort": {
+    "description": "Label: Sort"
+  },
+
+  "lblDate": "Tarih",
+  "@lblDate": {
+    "description": "Label: Date"
+  },
+
+  "lblTime": "Saat",
+  "@lblTime": {
+    "description": "Label: Time"
+  },
+
+  "lblPrice": "Fiyat",
+  "@lblPrice": {
+    "description": "Label: Price"
+  },
+
+  "lblFree": "Ücretsiz",
+  "@lblFree": {
+    "description": "Label: Free event"
+  },
+
+  "lblPaid": "Ücretli",
+  "@lblPaid": {
+    "description": "Label: Paid event"
+  },
+
+  "lblCategory": "Kategori",
+  "@lblCategory": {
+    "description": "Label: Category"
+  },
+
+  "lblLanguage": "Dil",
+  "@lblLanguage": {
+    "description": "Label: Language setting"
+  },
+
+  "lblSettings": "Ayarlar",
+  "@lblSettings": {
+    "description": "Label: Settings"
+  },
+
+  "lblTheme": "Tema",
+  "@lblTheme": {
+    "description": "Label: Theme setting"
+  },
+
+  "lblLightMode": "Aydınlık Mod",
+  "@lblLightMode": {
+    "description": "Label: Light theme mode"
+  },
+
+  "lblDarkMode": "Karanlık Mod",
+  "@lblDarkMode": {
+    "description": "Label: Dark theme mode"
+  },
+
+  "lblSystemDefault": "Sistem Varsayılanı",
+  "@lblSystemDefault": {
+    "description": "Label: System default setting"
+  },
+
+  "lblNotifications": "Bildirim Ayarları",
+  "@lblNotifications": {
+    "description": "Label: Notification settings"
+  },
+
+  "lblPrivacy": "Gizlilik",
+  "@lblPrivacy": {
+    "description": "Label: Privacy settings"
+  },
+
+  "lblHelp": "Yardım ve Destek",
+  "@lblHelp": {
+    "description": "Label: Help and support"
+  },
+
+  "lblPoints": "Puan",
+  "@lblPoints": {
+    "description": "Label: Points"
+  },
+
+  "lblLevel": "Seviye",
+  "@lblLevel": {
+    "description": "Label: Level"
+  },
+
+  "lblVisits": "Ziyaret",
+  "@lblVisits": {
+    "description": "Label: Visits count"
+  },
+
+  "lblRoutesDone": "Rota",
+  "@lblRoutesDone": {
+    "description": "Label: Completed routes"
+  },
+
+  "lblMemberSince": "Üyelik: {date}",
+  "@lblMemberSince": {
+    "description": "Label: Member since date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Ocak 2024"
+      }
+    }
+  },
+
+  "sectionFeaturedPlaces": "Öne Çıkan Mekanlar",
+  "@sectionFeaturedPlaces": {
+    "description": "Section title: Featured places"
+  },
+
+  "sectionDiscoveryRoutes": "Keşif Rotaları",
+  "@sectionDiscoveryRoutes": {
+    "description": "Section title: Discovery routes on home (below featured places)"
+  },
+
+  "sectionCityGuideBlog": "Şehir Rehberi & Blog",
+  "@sectionCityGuideBlog": {
+    "description": "Section title: City guide and blog articles on home"
+  },
+
+  "titleBlog": "Şehir Rehberi & Blog",
+  "@titleBlog": {
+    "description": "Blog list screen app bar title"
+  },
+
+  "blogSearchHint": "Yazılarda ara...",
+  "@blogSearchHint": {
+    "description": "Blog list search field hint"
+  },
+
+  "blogEmpty": "Henüz yazı yok.",
+  "@blogEmpty": {
+    "description": "Blog empty/error state message"
+  },
+
+  "blogReadMinutes": "{min} dk okuma",
+  "@blogReadMinutes": {
+    "description": "Estimated reading time label",
+    "placeholders": {
+      "min": { "type": "int" }
+    }
+  },
+
+  "sectionNearbyPlaces": "Yakındaki Yerler",
+  "@sectionNearbyPlaces": {
+    "description": "Section title: Nearby places"
+  },
+
+  "sectionQuickAccess": "Hızlı Erişim",
+  "@sectionQuickAccess": {
+    "description": "Section title: Quick access shortcuts"
+  },
+
+  "sectionCategories": "Kategoriler",
+  "@sectionCategories": {
+    "description": "Section title: Home content categories"
+  },
+  "categoryHealthTourism": "Sağlık Turizmi",
+  "@categoryHealthTourism": {
+    "description": "Category: Health tourism"
+  },
+  "categoryDiscoverSamsun": "Samsun'u Keşfet",
+  "@categoryDiscoverSamsun": {
+    "description": "Category: Discover Samsun"
+  },
+  "categoryGastronomy": "Gastronomi",
+  "@categoryGastronomy": {
+    "description": "Category: Gastronomy"
+  },
+  "categoryHistoricalMuseums": "Tarihi Yer ve Müzeler",
+  "@categoryHistoricalMuseums": {
+    "description": "Category: Historical places and museums"
+  },
+  "categoryNatureParks": "Doğa ve Parklar",
+  "@categoryNatureParks": {
+    "description": "Home category: Nature and parks"
+  },
+  "categoryBeaches": "Plajlar",
+  "@categoryBeaches": {
+    "description": "Home category: Beaches"
+  },
+
+  "placesCategoryHealthTourismLabel": "Sağlık Turizmi",
+  "@placesCategoryHealthTourismLabel": {
+    "description": "Places screen: health tourism category chip/badge label"
+  },
+  "placesCategoryDiscoverSamsunLabel": "Samsun'u Keşfet",
+  "@placesCategoryDiscoverSamsunLabel": {
+    "description": "Places screen: Discover Samsun category chip/badge label"
+  },
+  "placesCategoryGastronomyLabel": "Gastronomi",
+  "@placesCategoryGastronomyLabel": {
+    "description": "Places screen: Gastronomy category chip/badge label"
+  },
+  "placesCategoryHistoricalMuseumsLabel": "Tarihi Yer ve Müzeler",
+  "@placesCategoryHistoricalMuseumsLabel": {
+    "description": "Places screen: Historical sites & museums chip/badge label"
+  },
+  "placesCategoryNatureParksLabel": "Doğa ve Parklar",
+  "@placesCategoryNatureParksLabel": {
+    "description": "Places screen: Nature & parks chip/badge label"
+  },
+  "placesCategoryBeachesLabel": "Plajlar",
+  "@placesCategoryBeachesLabel": {
+    "description": "Places screen: Beaches chip/badge label"
+  },
+
+  "sectionUpcomingEvents": "Yaklaşan Etkinlikler",
+  "@sectionUpcomingEvents": {
+    "description": "Section title: Upcoming events"
+  },
+
+  "sectionAnnouncements": "Duyurular",
+  "@sectionAnnouncements": {
+    "description": "Section title: Announcements"
+  },
+
+  "sectionTravelRoutes": "Gezi Rotaları",
+  "@sectionTravelRoutes": {
+    "description": "Section title: Travel routes"
+  },
+
+  "sectionRecipes": "Tarifler",
+  "@sectionRecipes": {
+    "description": "Section title: Recipes"
+  },
+
+  "sectionLocalDelicacies": "Yöresel Lezzetler",
+  "@sectionLocalDelicacies": {
+    "description": "Section title: Local delicacies"
+  },
+
+  "sectionActiveCampaigns": "Aktif Kampanyalar",
+  "@sectionActiveCampaigns": {
+    "description": "Section title: Active campaigns"
+  },
+
+  "sectionAchievements": "Rozetler",
+  "@sectionAchievements": {
+    "description": "Section title: Achievements/Badges"
+  },
+
+  "sectionCompletedRoutes": "Tamamlanan Rotalar",
+  "@sectionCompletedRoutes": {
+    "description": "Section title: Completed routes"
+  },
+
+  "titleEvents": "Etkinlikler",
+  "@titleEvents": {
+    "description": "Screen title: Events"
+  },
+
+  "titlePlaces": "Yerler",
+  "@titlePlaces": {
+    "description": "Screen title: Places"
+  },
+
+  "titleAnnouncements": "Duyurular",
+  "@titleAnnouncements": {
+    "description": "Screen title: Announcements"
+  },
+
+  "titleNotifications": "Bildirimler",
+  "@titleNotifications": {
+    "description": "Screen title: Notifications"
+  },
+
+  "lblNoNotifications": "Henüz bildirim yok",
+  "@lblNoNotifications": {
+    "description": "Empty state on notifications screen"
+  },
+
+  "lblNoNotificationsDesc": "Yeni duyurular bildirim olarak gönderildiğinde burada görünür.",
+  "@lblNoNotificationsDesc": {
+    "description": "Empty state description on notifications screen"
+  },
+
+  "titleProfile": "Profilim",
+  "@titleProfile": {
+    "description": "Screen title: Profile"
+  },
+
+  "titleMyQrCode": "QR Kodum",
+  "@titleMyQrCode": {
+    "description": "Screen title: My QR Code"
+  },
+
+  "titleCampaigns": "Kampanyalar",
+  "@titleCampaigns": {
+    "description": "Screen title: Campaigns"
+  },
+
+  "titleRoutes": "Gezi Rotaları",
+  "@titleRoutes": {
+    "description": "Screen title: Routes"
+  },
+
+  "titleCulture": "Kültür & Etkinlikler",
+  "@titleCulture": {
+    "description": "Screen title: Culture & Events"
+  },
+
+  "titleRecipes": "Tarifler",
+  "@titleRecipes": {
+    "description": "Screen title: Recipes"
+  },
+
+  "titleMap": "Harita",
+  "@titleMap": {
+    "description": "Screen title: Map"
+  },
+
+  "heroWelcome": "Samsun'a Hoşgeldiniz",
+  "@heroWelcome": {
+    "description": "Hero section: Welcome message"
+  },
+
+  "heroSubtitle": "Karadeniz'in incisi Samsun'u keşfedin",
+  "@heroSubtitle": {
+    "description": "Hero section: Subtitle"
+  },
+
+  "heroSearchHint": "Nereye gitmek istersiniz?",
+  "@heroSearchHint": {
+    "description": "Hero search bar placeholder"
+  },
+  "heroSearchAction": "Ara",
+  "@heroSearchAction": {
+    "description": "Hero search submit button"
+  },
+
+  "errGenericTitle": "Hata",
+  "@errGenericTitle": {
+    "description": "Error dialog: Generic title"
+  },
+
+  "errGenericMessage": "Bir hata oluştu. Lütfen tekrar deneyin.",
+  "@errGenericMessage": {
+    "description": "Error dialog: Generic message"
+  },
+
+  "errNetworkTitle": "Bağlantı Hatası",
+  "@errNetworkTitle": {
+    "description": "Error dialog: Network error title"
+  },
+
+  "errNetworkMessage": "İnternet bağlantınızı kontrol edin ve tekrar deneyin.",
+  "@errNetworkMessage": {
+    "description": "Error dialog: Network error message"
+  },
+
+  "errNoResults": "Sonuç bulunamadı",
+  "@errNoResults": {
+    "description": "Empty state: No search results"
+  },
+
+  "errNoEvents": "Etkinlik bulunamadı",
+  "@errNoEvents": {
+    "description": "Empty state: No events"
+  },
+
+  "errNoPlaces": "Yer bulunamadı",
+  "@errNoPlaces": {
+    "description": "Empty state: No places"
+  },
+
+  "errLocationDisabled": "Konum servisleri kapalı",
+  "@errLocationDisabled": {
+    "description": "Error: Location services disabled"
+  },
+
+  "errLocationPermissionDenied": "Konum izni reddedildi",
+  "@errLocationPermissionDenied": {
+    "description": "Error: Location permission denied"
+  },
+
+  "loadingMessage": "Yükleniyor...",
+  "@loadingMessage": {
+    "description": "Loading state message"
+  },
+
+  "successTitle": "Başarılı",
+  "@successTitle": {
+    "description": "Success dialog: Title"
+  },
+
+  "confirmDeleteTitle": "Silmek istediğinize emin misiniz?",
+  "@confirmDeleteTitle": {
+    "description": "Confirm dialog: Delete title"
+  },
+
+  "confirmDeleteMessage": "Bu işlem geri alınamaz.",
+  "@confirmDeleteMessage": {
+    "description": "Confirm dialog: Delete message"
+  },
+
+  "placesCount": "{count} yer",
+  "@placesCount": {
+    "description": "Places count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "eventsCount": "{count} etkinlik",
+  "@eventsCount": {
+    "description": "Events count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "dateRange": "{start} - {end}",
+  "@dateRange": {
+    "description": "Date range display",
+    "placeholders": {
+      "start": {
+        "type": "String",
+        "example": "10 Şubat"
+      },
+      "end": {
+        "type": "String",
+        "example": "15 Şubat"
+      }
+    }
+  },
+
+  "btnGoBack": "Geri Dön",
+  "@btnGoBack": {
+    "description": "Button: Go back navigation"
+  },
+
+  "btnStartRoute": "Rotayı Başlat",
+  "@btnStartRoute": {
+    "description": "Button: Start the route"
+  },
+
+  "btnTriedRecipe": "Tarifi Denedim",
+  "@btnTriedRecipe": {
+    "description": "Button: I tried this recipe"
+  },
+
+  "lblAbout": "Hakkında",
+  "@lblAbout": {
+    "description": "Section: About"
+  },
+
+  "lblNotes": "Notlar",
+  "@lblNotes": {
+    "description": "Section: Notes"
+  },
+
+  "lblTags": "Etiketler",
+  "@lblTags": {
+    "description": "Section: Tags"
+  },
+
+  "lblContact": "İletişim",
+  "@lblContact": {
+    "description": "Section: Contact"
+  },
+
+  "lblOpeningHours": "Çalışma Saatleri",
+  "@lblOpeningHours": {
+    "description": "Section: Opening hours"
+  },
+
+  "lblPhotos": "Fotoğraflar",
+  "@lblPhotos": {
+    "description": "Section: Photos"
+  },
+
+  "lblVideo": "Video",
+  "@lblVideo": {
+    "description": "Section: Video"
+  },
+
+  "lblPhotosAndVideo": "Fotoğraflar ve Video",
+  "@lblPhotosAndVideo": {
+    "description": "Section: Photos and Video"
+  },
+
+  "lblReviews": "{count} değerlendirme",
+  "@lblReviews": {
+    "description": "Review count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "25"
+      }
+    }
+  },
+
+  "lblDistanceLabel": "Mesafe",
+  "@lblDistanceLabel": {
+    "description": "Label: Distance"
+  },
+
+  "errPlaceNotFound": "Mekan bulunamadı",
+  "@errPlaceNotFound": {
+    "description": "Error: Place not found"
+  },
+
+  "errRouteNotFound": "Rota bulunamadı",
+  "@errRouteNotFound": {
+    "description": "Error: Route not found"
+  },
+
+  "errRouteLoadFailed": "Rota yüklenemedi",
+  "@errRouteLoadFailed": {
+    "description": "Error: Route load failed"
+  },
+
+  "errRoutesLoadFailed": "Rotalar yüklenemedi",
+  "@errRoutesLoadFailed": {
+    "description": "Error: Routes load failed"
+  },
+
+  "errAnnouncementNotFound": "Duyuru bulunamadı",
+  "@errAnnouncementNotFound": {
+    "description": "Error: Announcement not found"
+  },
+
+  "errPageNotFound": "Sayfa Bulunamadı",
+  "@errPageNotFound": {
+    "description": "Error: Page not found"
+  },
+
+  "titleRouteAbout": "Rota Hakkında",
+  "@titleRouteAbout": {
+    "description": "Title: About route"
+  },
+
+  "titleRouteFeatures": "Rota Özellikleri",
+  "@titleRouteFeatures": {
+    "description": "Title: Route features"
+  },
+
+  "titleRouteStops": "Rota Durakları",
+  "@titleRouteStops": {
+    "description": "Title: Route stops"
+  },
+
+  "titleRecipeAbout": "Tarif Hakkında",
+  "@titleRecipeAbout": {
+    "description": "Title: About recipe"
+  },
+
+  "titleRecipeDetail": "Tarif Detayı",
+  "@titleRecipeDetail": {
+    "description": "Title: Recipe detail"
+  },
+
+  "titleDigitalId": "Dijital Kimlik",
+  "@titleDigitalId": {
+    "description": "Title: Digital ID"
+  },
+
+  "titleQrCode": "QR Kodum",
+  "@titleQrCode": {
+    "description": "Title: My QR Code"
+  },
+
+  "titleLocalDelicacies": "Yöresel Lezzetler",
+  "@titleLocalDelicacies": {
+    "description": "Title: Local Delicacies"
+  },
+
+  "titlePopularPlaces": "Popüler Mekanlar",
+  "@titlePopularPlaces": {
+    "description": "Title: Popular Places"
+  },
+
+  "titleCompletedRoutes": "Tamamlanan Rotalar",
+  "@titleCompletedRoutes": {
+    "description": "Title: Completed Routes"
+  },
+
+  "lblPhotoSpots": "Fotoğraf Noktaları",
+  "@lblPhotoSpots": {
+    "description": "Label: Photo spots"
+  },
+
+  "lblRestAreas": "Mola Alanları",
+  "@lblRestAreas": {
+    "description": "Label: Rest areas"
+  },
+
+  "lblUnnamedStop": "İsimsiz Durak",
+  "@lblUnnamedStop": {
+    "description": "Label: Unnamed stop"
+  },
+
+  "lblTotalDistance": "Toplam Mesafe",
+  "@lblTotalDistance": {
+    "description": "Label: Total distance"
+  },
+
+  "lblEarnedPoints": "Kazanılan Puan",
+  "@lblEarnedPoints": {
+    "description": "Label: Earned points"
+  },
+
+  "lblSampleData": "* Örnek veri - Gerçek veriler API'den gelecek",
+  "@lblSampleData": {
+    "description": "Label: Sample data note"
+  },
+
+  "btnLogin": "Giriş Yap",
+  "@btnLogin": {
+    "description": "Button: Log in"
+  },
+
+  "btnRegister": "Kayıt Ol",
+  "@btnRegister": {
+    "description": "Button: Register"
+  },
+
+  "msgLoginSuccess": "Giriş Başarılı",
+  "@msgLoginSuccess": {
+    "description": "Message: Login successful"
+  },
+
+  "msgInsufficientPoints": "Yetersiz Puan",
+  "@msgInsufficientPoints": {
+    "description": "Message: Insufficient points"
+  },
+
+  "authPhoneNotRegisteredTitle": "Bu numara kayıtlı değil",
+  "@authPhoneNotRegisteredTitle": {
+    "description": "Dialog title: phone not registered on login"
+  },
+  "authPhoneNotRegisteredBody": "Bu telefon numarası ile kayıtlı bir hesap yok. Devam etmek için kayıt olun.",
+  "@authPhoneNotRegisteredBody": {
+    "description": "Dialog body: suggest registration"
+  },
+  "authPhoneNotRegisteredShort": "Bu numara sistemde kayıtlı değil.",
+  "@authPhoneNotRegisteredShort": {
+    "description": "Inline hint under login form when number unknown"
+  },
+
+  "badgeFirstStep": "İlk Adım",
+  "@badgeFirstStep": {
+    "description": "Badge: First step"
+  },
+
+  "badgeNatureFriend": "Doğa Dostu",
+  "@badgeNatureFriend": {
+    "description": "Badge: Nature friend"
+  },
+
+  "badgeCultureAmbassador": "Kültür Elçisi",
+  "@badgeCultureAmbassador": {
+    "description": "Badge: Culture ambassador"
+  },
+
+  "badgeCompleteMuseums": "Müzeleri tamamla",
+  "@badgeCompleteMuseums": {
+    "description": "Badge desc: Complete museums"
+  },
+
+  "badgeSuperCitizen": "Süper Vatandaş",
+  "@badgeSuperCitizen": {
+    "description": "Badge: Super citizen"
+  },
+
+  "lblParkWalk": "Park Yürüyüşü",
+  "@lblParkWalk": {
+    "description": "Label: Park walk route"
+  },
+
+  "filterToday": "Bugün",
+  "@filterToday": {
+    "description": "Filter: Today"
+  },
+
+  "filterTomorrow": "Yarın",
+  "@filterTomorrow": {
+    "description": "Filter: Tomorrow"
+  },
+
+  "filterThisWeekend": "Bu Hafta Sonu",
+  "@filterThisWeekend": {
+    "description": "Filter: This weekend"
+  },
+
+  "filterCustomDate": "Tarih Seç",
+  "@filterCustomDate": {
+    "description": "Filter: Select custom date"
+  },
+
+  "filterDateRange": "Tarih Aralığı",
+  "@filterDateRange": {
+    "description": "Filter: Date range"
+  },
+
+  "filterPriceRange": "Fiyat Aralığı",
+  "@filterPriceRange": {
+    "description": "Filter: Price range"
+  },
+
+  "filterFreeOnly": "Sadece Ücretsiz",
+  "@filterFreeOnly": {
+    "description": "Filter: Free only"
+  },
+
+  "filterPaidOnly": "Sadece Ücretli",
+  "@filterPaidOnly": {
+    "description": "Filter: Paid only"
+  },
+
+  "filterTitle": "Filtreler",
+  "@filterTitle": {
+    "description": "Filter: Title"
+  },
+
+  "filterReset": "Sıfırla",
+  "@filterReset": {
+    "description": "Filter: Reset"
+  },
+
+  "lblEnableLocationServices": "Mesafeleri görmek için konum servislerini açın",
+  "@lblEnableLocationServices": {
+    "description": "Label: Enable location services"
+  },
+
+  "lblGrantLocationPermission": "Mesafeleri görmek için konum izni verin",
+  "@lblGrantLocationPermission": {
+    "description": "Label: Grant location permission"
+  },
+
+  "btnOpenSettings": "Ayarları Aç",
+  "@btnOpenSettings": {
+    "description": "Button: Open settings"
+  },
+
+  "btnGrantPermission": "İzin Ver",
+  "@btnGrantPermission": {
+    "description": "Button: Grant permission"
+  },
+
+  "subtitleDiscoverEvents": "Yaklaşan etkinlikleri keşfet",
+  "@subtitleDiscoverEvents": {
+    "description": "Subtitle: Discover upcoming events"
+  },
+
+  "msgPointsGuestLoginGeneric": "Puan bilgilerini görmek ve kazanmak için giriş yapın",
+  "@msgPointsGuestLoginGeneric": {
+    "description": "Guest: sign in to see and earn points"
+  },
+
+  "msgPointsGuestLoginWithValue": "+{points} puan kazanmak için giriş yapın",
+  "@msgPointsGuestLoginWithValue": {
+    "description": "Guest: sign in to earn N points",
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+
+  "settingsFavorites": "Favorilerim",
+  "settingsItineraries": "Gezi Planlarım",
+  "profileMyContent": "İçeriklerim",
+  "settingsLegal": "Yasal",
+  "settingsLegalSubtitle": "Aydınlatma metni, gizlilik ve koşullar",
+  "settingsAnalyticsTitle": "Anonim Kullanım İstatistikleri",
+  "settingsAnalyticsSubtitle": "Uygulamanın hangi özelliklerinin daha çok kullanıldığını anlamamıza yardım eder. Kişisel veri toplanmaz.",
+  "languageSheetTitle": "Dil / Language",
+
+  "notifSheetTitle": "Bildirim Ayarları",
+  "notifGeneralTitle": "Genel Bildirimler",
+  "notifGeneralSubtitle": "Tüm push bildirimlerini açar/kapatır",
+  "notifCampaignsTitle": "Kampanya Bildirimleri",
+  "notifCampaignsSubtitle": "Yeni kampanya ve fırsat duyuruları",
+  "notifEventsTitle": "Etkinlik Bildirimleri",
+  "notifEventsSubtitle": "Yaklaşan etkinlikler ve organizasyonlar",
+  "notifNearbyTitle": "Yakınımdaki Yerler",
+  "notifNearbySubtitle": "Önemli bölgelere yaklaştığınızda bildirim",
+  "geofenceActiveInfo": "Kavak, Atakum gibi bölgelere girdiğinizde otomatik bildirim alacaksınız. Aynı bölge için 24 saat içinde tekrar bildirim gelmez.",
+  "geofenceCheckNow": "Şimdi kontrol et",
+  "lblLastCheck": "Son Kontrol",
+  "geoLocationServicesOff": "Konum servisleri kapalı",
+  "geoPermissionDenied": "Konum izni reddedildi",
+  "geoPermissionDeniedForever": "Konum izni kalıcı olarak reddedildi",
+  "geoLocationNotYet": "Konum henüz alınamadı, tekrar denenecek",
+  "geoServiceDisabled": "Servis devre dışı",
+  "geoInsideZone": "{name} içindesiniz",
+  "@geoInsideZone": { "placeholders": { "name": { "type": "String" } } },
+  "geoNoZone": "Hiçbir bölge içinde değilsiniz",
+  "geoLocationFailedWith": "Konum alınamadı: {error}",
+  "@geoLocationFailedWith": { "placeholders": { "error": { "type": "String" } } },
+  "lblFollowedDistrict": "Takip Edilen İlçe",
+
+  "dlgLocationPermissionTitle": "Konum İzni Gerekli",
+  "dlgLocationPermissionBody": "Yakınlarınızdaki turistik yerler hakkında bildirim alabilmek için konum bilgisine erişim izni vermeniz gerekiyor.\n\nLütfen uygulama ayarlarından konum iznini etkinleştirin.",
+  "dlgNotifPermissionTitle": "Bildirim İzni Gerekli",
+  "dlgNotifPermissionBody": "Bildirimleri açabilmek için sistem ayarlarından bu uygulamaya bildirim izni vermeniz gerekiyor.\n\nLütfen uygulama ayarlarından bildirimlere izin verin.",
+  "btnOk": "Tamam",
+  "btnGoToSettings": "Ayarlara Git",
+  "btnGiveUp": "Vazgeç",
+  "btnContinue": "Devam Et",
+
+  "btnDeleteAccount": "Hesabımı Sil",
+  "deleteAccountWarnTitle": "Hesabını silmek üzeresin",
+  "deleteAccountIfYouDelete": "Hesabını silersen:",
+  "deleteAccountBulletProfile": "Profil bilgilerin silinir",
+  "deleteAccountBulletFavorites": "Favorilerin ve gezi planların kaybolur",
+  "deleteAccountBulletHistory": "Ziyaret geçmişin anonimleştirilir",
+  "deleteAccountBulletNotifications": "Bildirim aboneliklerin kaldırılır",
+  "deleteAccountReSignupNote": "Aynı telefon numarasıyla yeniden üye olabilirsin, ancak silinen veriler geri getirilemez.",
+  "lblReasonOptional": "Sebep (opsiyonel)",
+  "deleteAccountFinalTitle": "Son Onay",
+  "deleteAccountConfirmWord": "HESABIMI SİL",
+  "deleteAccountConfirmPrompt": "Bu işlem GERİ ALINAMAZ. Onaylamak için aşağıdaki kutuya \"{word}\" yaz:",
+  "@deleteAccountConfirmPrompt": {
+    "placeholders": {
+      "word": { "type": "String" }
+    }
+  },
+  "deleteAccountDoneTitle": "Hesabın silindi",
+  "deleteAccountDaysRemaining": "Hesabın {days} gün içinde kalıcı olarak silinecek. Bu süre içinde aynı numarayla tekrar giriş yaparsan hesabını geri alabilirsin.",
+  "@deleteAccountDaysRemaining": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "deleteAccountMarkedGeneric": "Hesabın silinmek üzere işaretlendi. Görüşmek üzere.",
+  "deleteAccountFailed": "Hesabın şu an silinemedi. Bağlantını kontrol edip tekrar dene.",
+  "deleteReasonNotUsing": "Artık kullanmıyorum",
+  "deleteReasonMissingFeatures": "Beklediğim özellikleri bulamadım",
+  "deleteReasonPrivacy": "Gizlilik / veri kaygısı",
+  "deleteReasonTooManyNotifs": "Bildirim çok geliyor",
+  "deleteReasonSwitchedApp": "Başka bir uygulamaya geçtim",
+  "deleteReasonPreferNotSay": "Belirtmek istemiyorum",
+
+  "btnExplore": "Keşfet",
+  "btnLater": "Sonra",
+  "geofenceToggleTitle": "Yakınımdaki Yerler",
+  "geofenceToggleSubtitle": "Bölgelere girdiğinizde bildirim alın",
+
+  "notifPushTitle": "Push Bildirimleri",
+  "notifPushSubtitle": "Duyuru ve kampanya bildirimleri",
+  "notifSubtitlePushAndNearby": "Push ve yakınındaki yerler açık",
+  "notifSubtitlePushOnly": "Push bildirimleri açık",
+  "notifSubtitleNearbyOnly": "Yakınımdaki yerler açık",
+  "notifSubtitleOff": "Bildirimler kapalı",
+
+  "announcementsMuteTooltip": "Bildirimleri sessize al",
+  "@announcementsMuteTooltip": {
+    "description": "Tooltip: mute push notifications from announcements screen"
+  },
+  "announcementsUnmuteTooltip": "Bildirimleri aç",
+  "@announcementsUnmuteTooltip": {
+    "description": "Tooltip: unmute push notifications from announcements screen"
+  },
+  "announcementsMutedSnack": "Bildirimler sessize alındı. Önemli duyuruları kaçırabilirsiniz.",
+  "@announcementsMutedSnack": {
+    "description": "Snackbar shown after muting notifications"
+  },
+  "announcementsUnmutedSnack": "Bildirimler açıldı",
+  "@announcementsUnmutedSnack": {
+    "description": "Snackbar shown after unmuting notifications"
+  },
+  "btnUndo": "Geri Al",
+  "@btnUndo": {
+    "description": "Generic undo action label (e.g. in snackbars)"
+  },
+
+  "profileRegisteredUser": "Kayıtlı Kullanıcı",
+  "staffLoginPrompt": "Kasa işlemleri için personel girişi.",
+  "staffLoginTitle": "Personel Girişi",
+  "staffPanelTitle": "Personel Paneli",
+  "posCashier": "Kasa",
+  "staffSwitchFacility": "Tesis değiştir",
+  "staffEnterCode": "Kod Gir",
+  "staffEnterCodeHint": "Müşterinin ekranındaki 6 haneli kodu girin",
+  "btnVerify": "Doğrula",
+  "staffEditTotal": "Toplam Tutarı Düzenle",
+  "staffTotalPoints": "Toplam Puan",
+  "staffProfileTitle": "Personel Profili",
+  "staffLogout": "Çıkış",
+  "staffTotalTransactions": "Toplam İşlem",
+  "staffProcessedPoints": "İşlenen Puan",
+  "staffPaymentApproval": "Ödeme Onayı",
+  "posPriceTimesQty": "{price} puan × {qty}",
+  "@posPriceTimesQty": { "placeholders": { "price": { "type": "int" }, "qty": { "type": "int" } } },
+  "staffExtraFee": "Ek ücret",
+  "staffManualAmount": "Manuel Tutar",
+  "staffTransactions": "İşlemler",
+  "staffScan": "Tara",
+  "staffSelectFacility": "Tesis seçin",
+  "arViewDetail": "Detay gör",
+  "arAddToPlan": "Plana ekle",
+  "arHttpsRequired": "AR için HTTPS gerekli",
+  "arCardViewCamera": "Kart Görünümü (Kamera)",
+  "arRadarView": "Radar Görünümü",
+  "arBackToRadar": "Radar görünümüne dön",
+  "arContinueCardView": "Kart Görünümü ile Devam Et",
+  "arSceneTitle": "AR Sahnesi",
+  "arAligned": "Hizalı",
+  "arActiveCount": "{count} aktif",
+  "@arActiveCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "arPreviewModeBanner": "Önizleme modu — yayında olmayan noktalar gösteriliyor.",
+  "arCompassCalibrationBanner": "Pusula kalibre değil. Telefonu sekiz şeklinde hareket ettirin.",
+  "arGpsAccuracyBanner": "GPS doğruluğu düşük ({accuracy} m).",
+  "@arGpsAccuracyBanner": {
+    "placeholders": {
+      "accuracy": { "type": "String" }
+    }
+  },
+  "arCloseModel": "Modeli kapat",
+  "arModelLoading": "Model yükleniyor…",
+  "arCameraInitFailed": "Kamera başlatılamadı. Cihaz desteğini ve izinleri kontrol edin.",
+  "loginScreenTitle": "Hesabınıza Giriş Yapın",
+  "loginScreenSubtitle": "Tüm özelliklere erişmek için giriş yapın",
+  "qrWaitingConnection": "İnternet bağlantısı bekleniyor...",
+  "qrPaymentComplete": "Ödeme Tamamlandı!",
+  "qrSpendPrompt": "Puan harcamak için kasada personelin okutmasına izin verin",
+  "qrNoCode": "Şu anda gösterilecek QR kodu yok.",
+  "qrRefreshing": "QR yenileniyor...",
+
+  "authWelcome": "Hoş Geldiniz",
+  "authLoginSubtitle": "Samsun Büyükşehir Belediyesi cüzdanınıza güvenle giriş yapın.",
+  "lblPhoneNumber": "Telefon Numarası",
+  "valPhoneRequired": "Lütfen telefon numaranızı girin",
+  "valPhoneInvalid": "Lütfen geçerli bir telefon numarası girin",
+  "authOtpSendInfo": "Numaranızı doğrulamak için tek kullanımlık bir SMS kodu göndereceğiz.",
+
+  "otpAppBarTitle": "Doğrulama Kodu",
+  "otpVerifyPhoneTitle": "Telefonunu Doğrula",
+  "otpSentToLabel": "Doğrulama kodu şu numaraya gönderildi:",
+  "lblRemainingTime": "Kalan süre",
+  "btnResendCode": "Kodu Tekrar Gönder",
+  "otpPendingDeletionTitle": "Hesabınız silinmek üzere",
+  "otpPendingDeletionBody": "Bu hesap için silme talebi alınmış. Kalıcı olarak silinmesine {days} gün kaldı.\n\nHesabınızı geri yüklemek ister misiniz? \"Vazgeç\" derseniz silme süreci devam eder.",
+  "@otpPendingDeletionBody": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "btnRestoreAccount": "Hesabımı Geri Yükle",
+  "accountRestoredMsg": "Hesabınız geri yüklendi. Hoş geldiniz!",
+  "otpAccountDeletedTitle": "Hesap silinmiş",
+  "otpAccountDeletedBody": "Bu telefon numarasına ait hesap kalıcı olarak silinmiş. Devam etmek için yeni bir hesap oluşturmanız gerekir.",
+  "btnCreateNewAccount": "Yeni Hesap Oluştur",
+
+  "registerSubtitle": "Cüzdanınızı oluşturmak için bilgilerinizi doldurun.",
+  "lblFirstName": "Adınız",
+  "valFirstNameRequired": "Lütfen adınızı girin",
+  "lblLastName": "Soyadınız",
+  "valLastNameRequired": "Lütfen soyadınızı girin",
+  "valEmailRequired": "Lütfen e-posta adresinizi girin",
+  "valEmailInvalid": "Lütfen geçerli bir e-posta adresi girin",
+  "legalClarificationText": "Aydınlatma Metni",
+  "legalTermsOfUse": "Kullanım Koşulları",
+  "lblEmail": "E-posta",
+  "registerConsentPrefix": "",
+  "registerConsentMid": "'ni okudum; ",
+  "registerConsentSuffix": "'nı kabul ediyor ve kişisel verilerimin işlenmesine açık rıza veriyorum.",
+
+  "favRecordCount": "{count} kayıt",
+  "@favRecordCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "favEmptyPlaces": "Henüz favori mekanınız yok",
+  "favEmptyRecipes": "Henüz favori tarifiniz yok",
+  "favEmptyRoutes": "Henüz favori rotanız yok",
+  "favEmptyDelicacies": "Henüz favori lezzetiniz yok",
+  "favRemove": "Favorilerden kaldır",
+  "favHint": "İçeriklerin yanındaki kalp simgesine dokunarak favorilerinize ekleyebilirsiniz.",
+
+  "itineraryDeleteTitle": "Plan silinsin mi?",
+  "btnDelete": "Sil",
+  "itineraryDeleteConfirm": "\"{title}\" planı kalıcı olarak silinecek.",
+  "@itineraryDeleteConfirm": {
+    "placeholders": { "title": { "type": "String" } }
+  },
+  "itineraryEmpty": "Henüz gezi planınız yok",
+  "itineraryEmptyHint": "Aşağıdaki \"Yeni Plan\" butonuyla rotanızı oluşturun, dilediğiniz mekan ve etkinlikleri ekleyin.",
+  "sortRecommended": "Önerilen",
+  "sortByName": "İsme göre (A-Z)",
+  "sortPopularity": "Popülerlik",
+  "sortProximity": "Yakınlık",
+  "sortDuration": "Süre",
+  "sortStopCount": "Durak sayısı",
+  "sortRating": "Puan",
+  "sortByDate": "Tarihe göre",
+  "routeModeWalking": "Yürüyüş",
+  "routeModeBike": "Bisiklet",
+  "routeModeCar": "Araç ile",
+  "routeDiffEasy": "Kolay",
+  "routeDiffMedium": "Orta",
+  "routeDiffHard": "Zor",
+  "routeLabelDefault": "Rota",
+
+  "permLocationTitle": "Konum İzni",
+  "permLocationDesc": "Size en yakın yerleri, etkinlikleri ve harita yönlendirmesini gösterebilmek için konumunuza erişmek istiyoruz.",
+  "permLocationBullet1": "Yakınınızdaki turistik ve kültürel noktalar listelenir.",
+  "permLocationBullet2": "Haritada konumunuz ve yol tarifi gösterilir.",
+  "permLocationBullet3": "Konumunuz yalnızca hizmet için kullanılır, paylaşılmaz.",
+  "permLocationBgTitle": "Yakındaki Yer Bildirimleri",
+  "permLocationBgDesc": "Önemli bölgelere yaklaştığınızda (telefon cebinizdeyken bile) sizi bilgilendirebilmek için arka plan konum erişimi gerekir. Açılan izin ekranında lütfen \"Her zaman izin ver\" seçeneğini seçin.",
+  "permLocationBgBullet1": "Turistik noktalara yaklaşınca bildirim alırsınız.",
+  "permLocationBgBullet2": "Bunun çalışması için konum iznini \"Her zaman izin ver\" olarak ayarlamanız gerekir.",
+  "permLocationBgBullet3": "Bazı cihazlarda bu seçenek ayarlar sayfasından işaretlenir; dilediğiniz an yine oradan kapatabilirsiniz.",
+  "permNotifTitle": "Bildirim İzni",
+  "permNotifDesc": "Şehirdeki etkinlik, duyuru ve kampanyalardan haberdar olmanız için bildirim göndermek istiyoruz.",
+  "permNotifBullet1": "Yeni etkinlik ve duyurular anında ulaşır.",
+  "permNotifBullet2": "Bildirim türlerini ayarlardan tek tek seçebilirsiniz.",
+  "permNotifBullet3": "İstediğiniz zaman kapatabilirsiniz.",
+  "permCameraTitle": "Kamera İzni",
+  "permCameraDesc": "QR kod okuma ve artırılmış gerçeklik (AR) deneyimi için kameraya erişmemiz gerekir.",
+  "permCameraBullet1": "Mekanlardaki QR kodlarını okutabilirsiniz.",
+  "permCameraBullet2": "Tarihi yapıları AR ile canlandırabilirsiniz.",
+  "permCameraBullet3": "Kamera görüntüsü cihaz dışına gönderilmez.",
+  "btnNotNow": "Şimdi Değil",
+
+  "campaignUpcoming": "Kampanya Yakında",
+  "campaignUpcomingHint": "+{points} puan kazanmak için kampanyayı bekleyin",
+  "@campaignUpcomingHint": { "placeholders": { "points": { "type": "int" } } },
+  "campaignEnded": "Kampanya Bitti",
+  "pointsAmount": "+{points} Puan",
+  "@pointsAmount": { "placeholders": { "points": { "type": "int" } } },
+  "pointsApproach": "Mekana yaklaşarak puan kazanın",
+  "pointsApproachWithDist": "Mekana yaklaşarak puan kazanın ({distance} uzakta)",
+  "@pointsApproachWithDist": { "placeholders": { "distance": { "type": "String" } } },
+  "almostThere": "Neredeyse oradasınız!",
+  "pointsApproachMore": "+{points} puan için {distance} daha yaklaşın",
+  "@pointsApproachMore": { "placeholders": { "points": { "type": "int" }, "distance": { "type": "String" } } },
+  "collectPoints": "Puanı Topla!",
+  "earnPoints": "+{points} puan kazanın",
+  "@earnPoints": { "placeholders": { "points": { "type": "int" } } },
+  "collectingPoints": "Puan toplanıyor...",
+  "routeCompletedBonus": "Rota Tamamlandı! +{earned} Bonus Puan",
+  "@routeCompletedBonus": { "placeholders": { "earned": { "type": "int" } } },
+  "pointsEarnedExclaim": "+{earned} Puan Kazanıldı!",
+  "@pointsEarnedExclaim": { "placeholders": { "earned": { "type": "int" } } },
+  "errOccurred": "Bir hata oluştu",
+
+  "lblViewCount": "{count} görüntülenme",
+  "@lblViewCount": { "placeholders": { "count": { "type": "int" } } },
+  "heroDiscoverSubtitle": "Şehrinizi keşfedin, etkinliklere katılın",
+  "lblAddress": "Adres",
+  "badgeNew": "Yeni",
+  "badgeImportant": "Önemli",
+  "onboardingStart": "Başla",
+  "onbSkip": "Atla",
+  "onbContinue": "Devam",
+  "onbWelcomeTitle": "Samsun'a Hoş Geldiniz",
+  "onbWelcomeDesc": "Şehrin tarihini, kültürünü ve güzelliklerini tek bir uygulamada keşfedin. Harita, AR, asistan ve daha fazlasını birkaç adımda tanıtalım.",
+  "onbNavTitle": "Kolay Gezinme",
+  "onbNavDesc": "Her şeye birkaç dokunuşla ulaşın. Aşağıdaki çubuk ana bölümlere, ortadaki buton haritaya götürür.",
+  "onbNavBullet1Title": "Alt çubuk",
+  "onbNavBullet1Desc": "Anasayfa, Yerler, Duyurular ve Profil sekmeleri.",
+  "onbNavBullet2Title": "Ortadaki harita butonu",
+  "onbNavBullet2Desc": "Şehri canlı haritada keşfedin.",
+  "onbNavBullet3Title": "Sol üstteki ☰ menü",
+  "onbNavBullet3Desc": "Tüm bölümler ve tema (Açık/Koyu/Sistem) buradan ayarlanır.",
+  "onbNavBullet4Title": "Sağ üstteki Asistan",
+  "onbNavBullet4Desc": "Samsun Asistan'a istediğinizi sorun.",
+  "onbDiscoverTitle": "Keşfet & Ara",
+  "onbDiscoverDesc": "Anasayfa size özel canlı bir keşif akışı sunar; aradığınızı kategori ve konuma göre hızlıca bulun.",
+  "onbDiscoverBullet1Title": "Yakınındakiler",
+  "onbDiscoverBullet1Desc": "Konumunuza göre çevredeki yerler otomatik listelenir.",
+  "onbDiscoverBullet2Title": "Size özel öneriler",
+  "onbDiscoverBullet2Desc": "İlgi alanlarınıza göre kişiselleştirilmiş içerik.",
+  "onbDiscoverBullet3Title": "Arama & filtre",
+  "onbDiscoverBullet3Desc": "Kategori ve konuma göre hızlıca süzün.",
+  "onbDiscoverBullet4Title": "Gezi planı",
+  "onbDiscoverBullet4Desc": "Birden çok durağı tek bir günlük rotada planlayın.",
+  "onbRewardsTitle": "Kaydet, Topla & Tamamla",
+  "onbRewardsDesc": "Uygulamayı kullandıkça kazanın. Beğendiklerinizi kaydedin, gittiğiniz yerleri tamamlayın ve puan biriktirin.",
+  "onbRewardsBullet1Title": "Favorilere ekle",
+  "onbRewardsBullet1Desc": "Kalbe dokunup içeriği favorilerinize kaydedin.",
+  "onbRewardsBullet2Title": "Tamamla",
+  "onbRewardsBullet2Desc": "Bir yere gidince \"Yeri Tamamladım\", rotayı bitirince rotayı tamamlayın.",
+  "onbRewardsBullet3Title": "Puan & rozetler",
+  "onbRewardsBullet3Desc": "Topladığınız puanlarla rozet ve ödüller açın.",
+  "onbRewardsBullet4Title": "Günlük giriş",
+  "onbRewardsBullet4Desc": "Her gün girdiğinizde ekstra ödül kazanın.",
+  "onbSaveTitle": "Kaydet & Hızlı Eriş",
+  "onbSaveDesc": "Beğendiğiniz yerleri, etkinlikleri ve içerikleri favorilerinize ekleyin; hepsine tek yerden ulaşın.",
+  "onbSaveBullet1Title": "Favorilere ekle",
+  "onbSaveBullet1Desc": "Kalbe dokunup içeriği favorilerinize kaydedin.",
+  "onbSaveBullet2Title": "Tek listede topla",
+  "onbSaveBullet2Desc": "Mekanlar, Rotalar, Tarifler ve Lezzetler ayrı sekmelerde.",
+  "onbSaveBullet3Title": "Hızlı eriş",
+  "onbSaveBullet3Desc": "Kaydettiklerinize istediğiniz an tek dokunuşla ulaşın.",
+  "onbMapTitle": "Harita & Yol Tarifi",
+  "onbMapDesc": "Şehrin önemli noktalarını harita üzerinde görün ve gitmek istediğiniz yere tek dokunuşla yönlenin.",
+  "onbMapBullet1Title": "Noktalar haritada",
+  "onbMapBullet1Desc": "Turistik, kültürel ve sosyal alanlar harita üzerinde.",
+  "onbMapBullet2Title": "Isı haritası",
+  "onbMapBullet2Desc": "En çok gezilen bölgeleri tek bakışta görün.",
+  "onbMapBullet3Title": "Yol tarifi",
+  "onbMapBullet3Desc": "Seçtiğiniz yere navigasyon uygulamanızla yönlenin.",
+  "onbMapBullet4Title": "Çevremde",
+  "onbMapBullet4Desc": "Bulunduğunuz konuma yakın noktaları anlık görün.",
+  "onbScanTitle": "QR, AR & Asistan",
+  "onbScanDesc": "Şehri etkileşimli yaşayın: kod okutun, tarihi canlandırın veya asistana sorun.",
+  "onbScanBullet1Title": "QR okut",
+  "onbScanBullet1Desc": "Mekanlardaki kodları okutup içeriğe anında ulaşın.",
+  "onbScanBullet2Title": "AR ile canlandır",
+  "onbScanBullet2Desc": "Tarihi yapıları radar, kamera ve 3B dünya modunda keşfedin.",
+  "onbScanBullet3Title": "Samsun Asistan",
+  "onbScanBullet3Desc": "Yazarak sorun; uygulamadaki bilgilerle anında yanıt alın.",
+  "onbInterestsTitle": "Sizi Ne İlgilendirir?",
+  "onbInterestsDesc": "Önerileri size göre kişiselleştirebilmemiz için bir veya birden fazla seçim yapabilirsiniz. Bu adımı atlayabilirsiniz.",
+  "onbInterestHistoric": "Tarihi Yerler",
+  "onbInterestCulture": "Kültür & Sanat",
+  "onbInterestNature": "Doğa & Park",
+  "onbInterestFood": "Yeme-İçme",
+  "onbInterestEvents": "Etkinlikler",
+  "onbInterestRoutes": "Gezi Rotaları",
+  "onbInterestArQr": "AR & QR Deneyimi",
+  "onbInterestRecipes": "Yöresel Tarifler",
+
+  "filterShowAll": "Tümünü göster",
+  "filterFavoritesOnly": "Yalnızca favorilerim",
+  "lblDuration": "Süre",
+  "recipeLocal": "Yöresel",
+  "tapForDetails": "Detayları görmek için tıklayın",
+
+  "favPlacesEmptyOrNoMatch": "Favori mekânınız yok veya eşleşen sonuç bulunamadı.",
+  "emptyTryDifferent": "Farklı bir kategori veya arama terimi deneyin",
+  "locationPermissionFromSettings": "Konum izni ayarlardan açılmalı",
+  "errLocationFailed": "Konum alınamadı",
+
+  "placeMarkVisited": "Burayı ziyaret ettim",
+  "placeMarkedVisited": "Ziyaret edildi olarak işaretlendi.",
+  "placeUnmarkedVisited": "Ziyaret işareti kaldırıldı.",
+  "lblComingSoon": "Yakında",
+  "pointsCollected": "Puan Alındı",
+  "arViewWith": "AR ile Görüntüle",
+
+  "recipePreparation": "Hazırlanışı",
+  "recipeLoadError": "Tarif yüklenirken bir hata oluştu.",
+  "errRecipeNotFound": "Tarif bulunamadı.",
+  "recipePrepTime": "Hazırlık",
+  "recipeServings": "kişi",
+  "recipeNoDescription": "Bu tarif için açıklama henüz eklenmemiş.",
+  "recipeTips": "Püf Noktaları",
+  "recipeFavEmptyOrNoMatch": "Favori tarifiniz yok veya eşleşen sonuç bulunamadı.",
+  "recipeNoneToShow": "Şu anda gösterilecek tarif bulunamadı.",
+  "delicaciesSubtitle": "Şehrimizin geleneksel tatları",
+  "delicaciesLoadError": "Yöresel lezzetler yüklenirken bir hata oluştu.",
+  "delicacyFavEmptyOrNoMatch": "Favori yöresel lezzetiniz yok veya eşleşen sonuç bulunamadı.",
+  "delicacyNoneToShow": "Şu anda gösterilecek yöresel lezzet bulunamadı.",
+
+  "lblLocalDelicacy": "Yöresel Lezzet",
+  "delicacyLoadError": "Bu lezzet yüklenirken bir hata oluştu.",
+  "delicacyNotFound": "Bu lezzet bulunamadı.",
+  "delicacyDetail": "Lezzet Detayı",
+  "tapToWatchVideo": "Videoyu izlemek için tıklayın",
+  "menuAbout": "Menü Hakkında",
+  "delicacyNoDescription": "Bu lezzet için açıklama henüz eklenmemiş.",
+  "delicacyRestaurantsSoon": "Bu lezzeti sunan restoranlar yakında eklenecek.",
+  "delicacyRestaurantsOnMap": "Restoranları Haritada Gör",
+  "delicacyShowPointsOnMap": "Bu menüyü sunan noktaları haritada göster",
+
+  "routeCompleted": "Rota Tamamlandı!",
+  "routeAllStopsBonus": "+{bonus} Tüm Duraklar Bonusu",
+  "@routeAllStopsBonus": {
+    "placeholders": { "bonus": { "type": "int" } }
+  },
+  "routeCompletionBonus": "+{bonus} Tamamlama Bonusu",
+  "@routeCompletionBonus": {
+    "placeholders": { "bonus": { "type": "int" } }
+  },
+  "routeBonusPoints": "+{points} Bonus Puan",
+  "@routeBonusPoints": {
+    "placeholders": { "points": { "type": "int" } }
+  },
+  "routeMarkCompleted": "Bu rotayı tamamladım",
+  "routeMarkedCompleted": "Rota tamamlandı olarak işaretlendi.",
+  "routeUnmarkedCompleted": "Tamamlanma işareti kaldırıldı.",
+  "routeYourProgress": "İlerlemeniz",
+  "routeEarnPointsHint": "Bu rotayı tamamlayarak {points} puan kazanabilirsiniz!",
+  "@routeEarnPointsHint": {
+    "placeholders": { "points": { "type": "int" } }
+  },
+  "routeView": "Rotayı Gör",
+
+  "cultureCatMuseum": "Müze",
+  "cultureCatEvent": "Etkinlik",
+  "cultureCatArt": "Sanat",
+  "cultureCatTheater": "Tiyatro",
+  "cultureAllEvents": "Tüm Etkinlikler",
+  "lblResultCount": "{count} sonuç",
+  "@lblResultCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "cultureSections": "Bölümler",
+  "cultureLocationContact": "Konum & İletişim",
+  "cultureTicketRegistration": "Bilet / Kayıt",
+  "cultureFreeEvent": "Ücretsiz Etkinlik",
+  "cultureFreeEventDesc": "Bu etkinlik ücretsizdir. Katılım için önceden kayıt gerekmez.",
+  "cultureTicketContact": "Bilet satışı için lütfen etkinlik mekanı ile iletişime geçin.",
+  "errEventNotFound": "Etkinlik bulunamadı",
+  "lblVisitor": "Ziyaretçi",
+  "lblOpen": "Açık",
+  "lblClosed": "Kapalı",
+  "filterEventTitle": "Etkinlik Filtreleri",
+  "filterSubtitle": "Aradığınız etkinlikleri kolayca bulun",
+  "filterSelectDateRange": "Tarih Aralığı Seç",
+  "filterSelectDateRangeHelp": "Tarih aralığı seçin",
+  "filterStartDateHint": "Başlangıç tarihi",
+  "filterEndDateHint": "Bitiş tarihi",
+  "filterInvalidRange": "Geçerli bir tarih aralığı seçin",
+  "filterFreeEventsOnly": "Sadece Ücretsiz Etkinlikler",
+  "filterFreeEventsOnlyDesc": "Ücretsiz katılabileceğiniz etkinlikleri göster",
+
+  "themeShortLight": "Açık",
+  "themeShortDark": "Koyu",
+  "themeShortSystem": "Sistem",
+  "drawerSlogan": "Şehri keşfet",
+  "drawerExplore": "Keşfet",
+  "drawerViewProfile": "Profili görüntüle",
+  "drawerGuestSubtitle": "Giriş yap veya kayıt ol",
+  "homeAroundMeAr": "Çevremde AR",
+  "mapNoPlacesInArea": "Bu bölgede gösterilebilecek bir yer bulunamadı.",
+  "mapSearchHint": "Konum veya mekan ara...",
+  "lblEarned": "Kazanılan",
+  "staffMyTransactions": "İşlemlerim",
+  "lblNotification": "Bildirim",
+  "btnView": "Görüntüle",
+  "lblErrorWith": "Hata: {error}",
+  "@lblErrorWith": { "placeholders": { "error": { "type": "String" } } },
+  "docNotFound": "Belge bulunamadı.",
+  "sectionForYou": "Sizin İçin",
+  "sectionNearby": "Yakındakiler",
+  "sectionPopular": "Popüler",
+  "sectionNewlyAdded": "Yeni Eklenenler",
+  "lblMenu": "Menü",
+  "qrCreateFailed": "QR oluşturulamadı",
+  "qrPointsSpent": "{amount} puan harcandı.",
+  "@qrPointsSpent": { "placeholders": { "amount": { "type": "int" } } },
+  "lblLanguageShort": "Dil",
+
+  "itineraryNewButton": "Yeni Plan",
+  "itineraryNotFound": "Plan bulunamadı",
+  "itineraryRename": "Yeniden adlandır",
+  "itineraryAddPlace": "Mekan Ekle",
+  "itineraryRenameTitle": "Plan adını değiştir",
+  "itineraryNewName": "Yeni ad",
+  "btnRemove": "Kaldır",
+  "itineraryNoStops": "Bu plana henüz durak eklemediniz",
+  "itinerarySelectPlace": "Mekan Seç",
+  "itinerarySearchPlace": "Mekan ara...",
+  "accountRestoredShort": "Hesabınız geri yüklendi.",
+  "accountRestoreFailed": "Hesap geri yüklenemedi. Lütfen tekrar deneyin.",
+  "itineraryNewTitle": "Yeni Gezi Planı",
+  "itineraryNameLabel": "Plan adı",
+  "itineraryNameHint": "Ör. Hafta sonu Samsun turu",
+  "lblStart": "Başlangıç",
+  "lblEnd": "Bitiş",
+  "btnCreate": "Oluştur",
+  "achievementsEarned": "{unlocked} / {total} rozet kazanıldı",
+  "@achievementsEarned": {
+    "placeholders": {
+      "unlocked": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "accountTitle": "Hesap Bilgileri",
+  "accountContactSection": "İletişim Bilgileri",
+  "accountNameLabel": "Ad Soyad",
+  "accountPhoneLabel": "Telefon",
+  "accountEmailLabel": "E-posta",
+  "accountEmailUnverified": "Doğrulanmamış",
+  "accountEmailVerified": "Doğrulandı",
+  "accountNoEmail": "E-posta eklenmemiş",
+  "accountVerifyEmail": "Doğrula",
+  "accountAddEmail": "E-posta Ekle",
+  "accountChangeEmail": "E-postayı Değiştir",
+  "accountChangePhone": "Telefonu Değiştir",
+
+  "emailVerifyTitle": "E-postanı Doğrula",
+  "emailVerifySentTo": "{email} adresine 6 haneli bir doğrulama kodu gönderdik.",
+  "@emailVerifySentTo": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "emailVerifyCodeLabel": "Doğrulama kodu",
+  "emailVerifyConfirm": "Doğrula",
+  "emailVerifyResend": "Kodu tekrar gönder",
+  "emailVerifySuccess": "E-postan başarıyla doğrulandı.",
+  "emailVerifyWhyTitle": "Neden gerekli?",
+  "emailVerifyWhyBody": "Doğrulanmış e-posta, telefon numaranı değiştirmek istediğinde kimliğini güvenle doğrulamamızı sağlar.",
+  "emailVerifyErrorInUseElsewhere": "Bu e-posta adresi başka bir hesapta zaten doğrulanmış. Güvenlik için aynı e-posta yalnızca tek bir hesapta doğrulanabilir. Adres gerçekten sana aitse destek ekibiyle iletişime geç; sana ait değilse Hesap Bilgileri'nden e-postanı değiştir.",
+
+  "contactErrorEmailRequiredFirst": "Devam etmek için önce e-posta adresini ekleyip doğrulaman gerekiyor.",
+  "contactErrorChangePending": "Devam eden bir değişiklik isteği var. Lütfen önce onu tamamla veya iptal et.",
+  "contactErrorInvalidCode": "Kod hatalı. Lütfen kontrol edip tekrar dene.",
+  "contactErrorCodeExpired": "Kodun süresi doldu. Lütfen yeni bir kod iste.",
+  "contactErrorTooManyAttempts": "Çok fazla hatalı deneme yaptın. Lütfen bir süre sonra tekrar dene.",
+  "contactErrorRateLimited": "Çok fazla istek gönderildi. Lütfen kısa bir süre bekleyip tekrar dene.",
+  "contactErrorValueInUse": "Bu bilgi kullanılamıyor. Lütfen farklı bir değer dene.",
+  "contactErrorSameValue": "Yeni değer mevcut değerinle aynı.",
+  "contactErrorGeneric": "Bir hata oluştu. Lütfen tekrar dene.",
+
+  "changeEmailTitle": "E-postayı Değiştir",
+  "addEmailTitle": "E-posta Ekle",
+  "changePhoneTitle": "Telefonu Değiştir",
+  "changeEmailIntro": "Kimliğini doğrulamak için önce telefonuna bir doğrulama kodu göndereceğiz.",
+  "changePhoneIntro": "Kimliğini doğrulamak için önce doğrulanmış e-posta adresine bir kod göndereceğiz.",
+  "changeContactSendCode": "Kodu Gönder",
+  "changeStepPhoneOtpLabel": "Telefonuna gelen kod",
+  "changeStepEmailCodeLabel": "E-postana gelen kod",
+  "changeNewEmailLabel": "Yeni e-posta adresi",
+  "changeNewEmailCodeLabel": "Yeni e-postana gelen kod",
+  "changeNewPhoneLabel": "Yeni telefon numarası",
+  "changeNewPhoneHint": "+90 5xx xxx xx xx",
+  "changeNewPhoneInvalid": "Geçerli bir telefon numarası gir.",
+  "changeNewPhoneOtpLabel": "Yeni numarana gelen kod",
+  "changeEmailSuccess": "E-posta adresin güncellendi.",
+  "addEmailSuccess": "E-posta adresin eklendi ve doğrulandı.",
+  "changePhoneSuccess": "Telefon numaran güncellendi.",
+  "changePhoneOtherDevicesNote": "Güvenliğin için diğer cihazlardaki oturumların kapatıldı.",
+  "changeContactStepLabel": "Adım {current}/{total}",
+  "@changeContactStepLabel": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "emailRequiredGateTitle": "Önce e-postanı doğrula",
+  "emailRequiredGateBody": "Telefon numaranı değiştirebilmek için doğrulanmış bir e-posta adresine ihtiyacın var. Önce e-postanı ekleyip doğrula.",
+  "emailRequiredGateButton": "Hesap Bilgilerine Git",
+  "btnNext": "Devam",
+  "btnChange": "Değiştir",
+  "profileEmailNotVerified": "E-posta doğrulanmadı",
+  "filterSortTitle": "Sıralama",
+  "emailClaimConfirmTitle": "E-posta başka hesapta kayıtlı",
+  "emailClaimConfirmBody": "Bu e-posta başka bir numaraya doğrulanmamış olarak kayıtlı. Doğrulama kodu alıp bu hesaba bağlamak ister misiniz?"
+}

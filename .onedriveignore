@@ -1,0 +1,13 @@
+build/
+.dart_tool/
+*.iml
+*.ipr
+*.iws
+.idea/
+.pub-cache/
+.pub/
+coverage/
+android/app/debug/
+android/app/profile/
+android/app/release/
+

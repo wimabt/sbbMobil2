@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1056951945308",
+    "project_id": "sbbmobile-1684b",
+    "storage_bucket": "sbbmobile-1684b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056951945308:android:314cf214bdc9bc79067e99",
+        "android_client_info": {
+          "package_name": "com.smartsamsun.mobil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxDShhE_FBzBx2pfyZOOjjDv1Ic0l7UfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

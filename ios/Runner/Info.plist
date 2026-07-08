@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sbb Mobile</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>sbb_mobile</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<!-- Location Permissions for Maps, Geolocator and Geofencing -->
+	<!-- WhenInUse: Normal map functionality -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Samsun Şehir Rehberi, haritada konumunuzu göstermek ve yakınlarınızdaki mekanları bulmak için konum bilginizi kullanır.</string>
+	
+	<!-- Always: GEOFENCING için zorunlu - Telefon cebinizdeyken bile -->
+	<!-- "Kavak'a hoş geldiniz!" gibi otomatik bildirimler için gereklidir -->
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Samsun Şehir Rehberi, önemli turistik bölgelere girdiğinizde (örneğin "Kavak'a hoş geldiniz!") size otomatik bildirimler gönderebilmek için arka planda konum erişimi ister. Telefonunuz cebinizdeyken bile bildirim alabilirsiniz.</string>
+	
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Samsun Şehir Rehberi, haritada konumunuzu göstermek ve önemli turistik bölgelere girdiğinizde size otomatik bildirimler gönderebilmek için konum bilginizi kullanır. "Her Zaman İzin Ver" seçeneği, telefonunuz cebinizdeyken bile "Atatürk Müzesi yakınındasınız!" gibi yararlı hatırlatmalar almanızı sağlar.</string>
+	
+	<!-- Background Modes: Geofencing ve Push Notifications için -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<!-- location: Geofence bölgelerine giriş/çıkış algılaması -->
+		<string>location</string>
+		<!-- remote-notification: Push bildirimleri arka planda işleme -->
+		<string>remote-notification</string>
+	</array>
+	<!-- Camera: QR code scanning (mobile_scanner) ve AR tetikleme için -->
+	<key>NSCameraUsageDescription</key>
+	<string>Samsun Şehir Rehberi, AR (Artırılmış Gerçeklik) deneyimi ve QR kod tarama için kamera erişimi gerektirir.</string>
+
+	<!-- Motion: Şartname §6.8.3.5 sensör füzyonu (jiroskop/ivmeölçer) için
+	     ARKit ve flutter_compass kullanır. Konum-tabanlı AR sahnesinin kararlı
+	     çalışabilmesi için zorunludur. -->
+	<key>NSMotionUsageDescription</key>
+	<string>Samsun Şehir Rehberi, artırılmış gerçeklik sahnesinin doğru hizalanabilmesi için cihaz hareket sensörlerine (jiroskop, ivmeölçer) erişir.</string>
+
+	<!-- AR: model_viewer_plus için embedded view desteği -->
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	
+	<!-- Impeller devre dışı: iPhone 11 (A13) gibi eski GPU'larda startup hang'i önler -->
+	<key>FLTEnableImpeller</key>
+	<false/>
+</dict>
+</plist>

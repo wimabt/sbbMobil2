@@ -1,0 +1,229 @@
+name: sbb_mobile
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  # State management & DI
+  flutter_riverpod: ^3.2.1
+
+  # Navigation
+  go_router: ^17.1.0
+
+  # Networking
+  dio: ^5.9.1
+
+  # Connectivity monitoring
+  connectivity_plus: ^6.1.4
+
+  # Security — Jailbreak / Root Detection
+  flutter_jailbreak_detection: ^1.8.0
+
+  # Security — RASP (Frida/hook, debugger, emülatör, repack, root tespiti).
+  # jailbreak_detection'ı genişletir: lib/core/security/threat_monitor_service.dart.
+  # NOT: 8.x Android 15 (API 35) ekran-kaydı API'leri kullanır → android/build.gradle.kts
+  # subproject compileSdk yaması 35'e çıkarıldı.
+  freerasp: ^8.0.0
+
+  # Storage & preferences
+  flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.3.2
+
+  # OTP input UI
+  pin_code_fields: ^8.0.1
+
+  # Localization
+  intl: ^0.20.2
+
+  # Maps
+  google_maps_flutter: ^2.7.0
+
+  # SVG support for Maki icons
+  flutter_svg: ^2.0.10+1
+
+  # Logging
+  logger: ^2.5.0
+
+  # Crypto — certificate pinning hashes (SHA-256)
+  crypto: ^3.0.6
+
+  # Video player
+  video_player: ^2.9.1
+
+  # URL launcher
+  url_launcher: ^6.3.0
+
+  # Polyline decoding for OSRM route geometry
+  flutter_polyline_points: ^2.1.0
+
+  # Location services
+  geolocator: ^14.0.2
+
+  # Image gallery with zoom/pan
+  photo_view: ^0.15.0
+
+  # HTML content rendering
+  flutter_html: ^3.0.0-beta.2
+
+  # Image caching - network görselleri disk cache'e alır
+  cached_network_image: ^3.3.1
+
+  # QR Code generation
+  qr_flutter: ^4.1.0
+
+  # Push Notifications & Geofencing - OneSignal
+  onesignal_flutter: ^5.3.7
+
+  # Permission handling - for granular background location permission
+  permission_handler: ^12.0.1
+
+  # Local Notifications - Geofence konum bildirimleri için
+  flutter_local_notifications: ^19.2.1
+
+  # Background task scheduling - OS-managed periodic geofence checks
+  # Android: WorkManager, iOS: BGTaskScheduler
+  workmanager: ^0.9.0+3
+
+  # AR — Ana deneyim cihazın native AR app'i üzerinden (Android: Scene Viewer
+  # via `https://arvr.google.com/scene-viewer/1.0?...`, iOS: AR Quick Look).
+  # In-app WebGL preview (model_viewer_plus) Adreno+WebView kombinasyonlarında
+  # render etmediği ve `mouse_tracker`/`FrameEvents` log spam'i ürettiği için
+  # kaldırıldı. AR launching `url_launcher` ile yapılıyor.
+
+  # AR - QR code scanning for marker-based AR triggers
+  mobile_scanner: ^7.0.1
+
+  # AR Geospatial - device compass heading (§6.8.3.3 bearing match)
+  flutter_compass: ^0.8.1
+
+  # AR Geospatial - accelerometer for device pitch (yukarı/aşağı bakış açısı).
+  # flutter_compass sadece yaw (heading) verir; POI'lerin yüksekliğe göre
+  # ekranda dikey konumlanması için pitch'e ihtiyaç var. §6.8.3.5 sensör
+  # füzyonu maddesi bu sensörlerin birlikte kullanılmasını gerektiriyor.
+  sensors_plus: ^7.0.0
+
+  # AR Camera-overlay — şartname §6.8.3.3 + §6.8.3.7 kamera arkaplanı zorunlu
+  # (cihazda ARCore/ARKit yoksa kullanılan fallback ekranı için.)
+  camera: ^0.11.0
+
+  # AR — uygulama-içi kamera AR'ı (model canlı kameranın içinde, OS'un harici
+  # AR uygulamasına çıkmadan). ARCore (Android) + ARKit (iOS) köprüsü.
+  # VENDORED (third_party/): pub.dev 0.0.3'teki `ModelNode.onMoveBegin` bug'ı
+  # (her zaman false dönüp sürüklemeyi engelliyordu) düzeltildi
+  # (ArView.kt onMoveBegin → return defaultResult). permission_handler/geolocator
+  # sıkı constraint'leri override ile aşılıyor (aşağıda).
+  ar_flutter_plugin_2:
+    path: third_party/ar_flutter_plugin_2
+
+  # Vector math — Matrix4/Vector3 (AR node pose'u için).
+  vector_math: ^2.1.4
+
+  # File system - offline model caching
+  path_provider: ^2.1.5
+  mask_text_input_formatter: ^2.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+
+dependency_overrides:
+  # flutter.compileSdkVersion is currently < 36 in this repo/toolchain, and
+  # sqflite_android >= 2.4.2 uses Android 36-only APIs/constants at compile time.
+  sqflite_android: 2.4.1
+  # shared_preferences_android 2.4.x main plugin sınıfını Kotlin'e taşıdı
+  # (LegacySharedPreferencesPlugin.java geriye kaldı). Flutter'ın oluşturduğu
+  # GeneratedPluginRegistrant.java hâlâ `new io.flutter...SharedPreferencesPlugin()`
+  # diye Java sınıfı arıyor; Kotlin sınıfı bulunamadığı için derleme kırılıyor.
+  # Java sınıfının hâlâ var olduğu son sürüme pinliyoruz.
+  shared_preferences_android: 2.3.4
+  # ar_flutter_plugin_2 0.0.3 transitive `permission_handler ^11.3.1` ister;
+  # uygulama 12.0.1 kullanıyor. API (Permission.camera/location/request,
+  # openAppSettings) eşdeğer; pin constraint'i atlamak için override.
+  permission_handler: ^12.0.1
+  # Aynı paket `geolocator ^12.0.0` ister; uygulama 14.0.2 kullanıyor.
+  # getPositionStream/openLocationSettings/LocationPermission API'leri
+  # arada değişmedi; override güvenli.
+  geolocator: ^14.0.2
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # Enable localization code generation
+  generate: true
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/categories/
+    - assets/icons/maki/
+    - assets/icons/fontawesome/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
