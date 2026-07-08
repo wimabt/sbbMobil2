@@ -20,10 +20,36 @@ set -euo pipefail
 
 BUILD_NUMBER="${1:?Kullanım: ./scripts/ios_release.sh <build-number>}"
 
+if ! [[ "$BUILD_NUMBER" =~ ^[0-9]+$ ]]; then
+  echo "HATA: build-number sadece rakam olmalı, verilen: '$BUILD_NUMBER'"
+  echo "      (örn. sonunda yanlışlıkla virgül/boşluk kalmış olabilir)"
+  exit 1
+fi
+
 echo "==> [1/6] Temiz başlangıç (flutter clean + Pods + DerivedData)"
 flutter clean
 rm -rf ios/Pods ios/Podfile.lock
-rm -rf ~/Library/Developer/Xcode/DerivedData
+
+# DerivedData bazen Xcode/Spotlight (mds) tarafından kilitlenmiş dosyalar
+# içerir ve düz `rm -rf` "Directory not empty" ile başarısız olabilir.
+# Önce olası kilitleyicileri kapat, immutable bayrakları temizle, sonra sil.
+killall Xcode >/dev/null 2>&1 || true
+killall Simulator >/dev/null 2>&1 || true
+DERIVED_DATA=~/Library/Developer/Xcode/DerivedData
+if [ -d "$DERIVED_DATA" ]; then
+  chflags -R nouchg "$DERIVED_DATA" >/dev/null 2>&1 || true
+  rm -rf "$DERIVED_DATA" || true
+  if [ -d "$DERIVED_DATA" ]; then
+    echo "UYARI: DerivedData tam silinemedi, tekrar deneniyor (2s bekleniyor)..."
+    sleep 2
+    rm -rf "$DERIVED_DATA" || true
+  fi
+  if [ -d "$DERIVED_DATA" ]; then
+    echo "HATA: DerivedData silinemedi. Finder'dan elle silin:"
+    echo "      Cmd+Shift+G ile ~/Library/Developer/Xcode/ açıp DerivedData'yı çöpe atın."
+    exit 1
+  fi
+fi
 
 echo "==> [2/6] Bağımlılıklar (pub get + pod install)"
 flutter pub get
