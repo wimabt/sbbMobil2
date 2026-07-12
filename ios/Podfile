@@ -30,6 +30,12 @@ flutter_ios_podfile_setup
 target 'Runner' do
   use_frameworks!
 
+  # AR Quick Look köprüsü (AppDelegate.swift): `.glb` → `.usdz` cihaz-içi
+  # dönüşümü için GLTFSceneKit. Zaten ar_flutter_plugin_2'nin transitive
+  # bağımlılığı; Runner target'ında `import GLTFSceneKit` yapabilmek için
+  # burada AÇIKÇA da bildirilir (aksi halde Runner'a link edilmez).
+  pod 'GLTFSceneKit'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths

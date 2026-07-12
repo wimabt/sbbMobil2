@@ -36,6 +36,19 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
   bool _showControls = true;
   double _dragOffset = 0;
 
+  /// `_controller` gerçekten oluşturuldu mu? `Uri.parse` / `networkUrl` bozuk
+  /// URL'de fırlatırsa `late` alan atanmadan kalır; dispose'ta ona dokunmak
+  /// `LateInitializationError` ile çöktürürdü. Bu bayrak dispose'u güvene alır.
+  bool _controllerCreated = false;
+
+  /// Çift kapatmayı (çarpı + kaydırma aynı anda / kaydırma sırasında tekrar
+  /// tetiklenme) engeller — tek `pop`.
+  bool _closing = false;
+
+  /// Oynatma teardown'u (durdur + sıfırla + sistem UI geri yükle) bir kez
+  /// yapılsın; hem kapatma anında hem dispose'ta çağrıldığında tekrar etmesin.
+  bool _torndown = false;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +66,7 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
   Future<void> _initializeVideo() async {
     try {
       _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+      _controllerCreated = true;
       await _controller.initialize();
       _controller.addListener(_videoListener);
       setState(() {
@@ -102,12 +116,46 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
         );
       }
     }
-    // Edge-to-edge modunu geri yükle
-    // StableSystemPadding arkadaki ekranların padding'ini dondurduğu için zıplama olmaz
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    _controller.removeListener(_videoListener);
-    _controller.dispose();
+    // Kapatma anında zaten yapılmadıysa oynatmayı durdur + sistem UI'yı geri
+    // yükle (dispose'un ne zaman/çalışıp çalışmadığına GÜVENMEDEN — kök sorun:
+    // bazı durumlarda dispose gecikince ses arkada çalmaya ve immersive üst bar
+    // gizli kalmaya devam ediyordu).
+    _teardownPlayback();
+    if (_controllerCreated) {
+      _controller.removeListener(_videoListener);
+      _controller.dispose();
+    }
     super.dispose();
+  }
+
+  /// Oynatmayı **anında** durdurup başa sarar ve tam-ekran sistem UI modunu
+  /// (immersive → edgeToEdge) geri yükler. Kapatma niyeti oluştuğu an çağrılır;
+  /// dispose'a bel bağlamaz. İdempotent (birden çok çağrı zararsız).
+  void _teardownPlayback() {
+    if (_torndown) return;
+    _torndown = true;
+    // iOS (AVFoundation): sadece dispose oynatmayı durdurmuyor; ses arka planda
+    // devam ediyordu. Sesi kıs + duraklat + başa sar → AVPlayer anında susar,
+    // ekrandan çıkıldığı an video sıfırlanır (kullanıcı isteği).
+    if (_controllerCreated) {
+      _controller.setVolume(0);
+      _controller.pause();
+      _controller.seekTo(Duration.zero);
+    }
+    // Üst bar / sistem çubuklarını geri getir — video sayfasından çıkıldığı an.
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
+  /// Tek kapatma yolu — çarpı, kaydırma ve hata ekranı hepsi buradan geçer.
+  /// Önce oynatmayı durdurur (pop gecikse/başarısız olsa bile ses susar),
+  /// sonra route'u kapatır. `_closing` bayrağı çift pop'u engeller.
+  void _dismiss() {
+    if (_closing) return;
+    _closing = true;
+    _teardownPlayback();
+    // Push `rootNavigator: true` ile yapıldığı için pop da root'tan.
+    final nav = Navigator.of(context, rootNavigator: true);
+    if (nav.canPop()) nav.pop();
   }
 
   void _togglePlayPause() {
@@ -159,17 +207,25 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarIconBrightness: Brightness.light,
       ),
-      child: GestureDetector(
-      onVerticalDragUpdate: (details) {
-        _dragOffset += details.primaryDelta ?? 0;
-        if (_dragOffset > 80) {
-          Navigator.of(context).pop();
-          _dragOffset = 0;
-        }
-      },
-      onVerticalDragEnd: (_) => _dragOffset = 0,
-      onVerticalDragCancel: () => _dragOffset = 0,
-      child: Scaffold(
+      child: PopScope(
+        // Route HANGI yolla kapatılırsa kapatılsın (çarpı, kaydırma, Android
+        // geri tuşu, iOS kenar-geri jesti) oynatma teardown'u GARANTİ çalışsın
+        // — dispose gecikse bile ses susar, üst bar geri gelir.
+        canPop: true,
+        onPopInvokedWithResult: (didPop, _) {
+          if (didPop) _teardownPlayback();
+        },
+        child: GestureDetector(
+        onVerticalDragUpdate: (details) {
+          _dragOffset += details.primaryDelta ?? 0;
+          // Eşik aşılınca TEK kapatma (`_dismiss` `_closing` ile korumalı) —
+          // eskiden `pop`'u drag-update içinde çağırıp `_dragOffset`'i sıfırlamak
+          // hızlı kaydırmada çift pop'a yol açabiliyordu.
+          if (_dragOffset > 80) _dismiss();
+        },
+        onVerticalDragEnd: (_) => _dragOffset = 0,
+        onVerticalDragCancel: () => _dragOffset = 0,
+        child: Scaffold(
         backgroundColor: Colors.black,
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
@@ -214,7 +270,7 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.close, color: Colors.white, size: 28),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: _dismiss,
                       ),
                       const Spacer(),
                     ],
@@ -316,6 +372,7 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
           ],
         ),
       ),
+      ),
     ),
     );
   }
@@ -369,7 +426,7 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
           const SizedBox(height: 48),
           IconButton(
             icon: const Icon(Icons.close, color: Colors.white54, size: 32),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: _dismiss,
           ),
         ],
       ),

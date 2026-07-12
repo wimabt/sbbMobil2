@@ -43,7 +43,12 @@ class _ArCameraOverlayScreenState extends ConsumerState<ArCameraOverlayScreen> {
   void _onTapModel(ArMatchedPoint match) {
     final url = match.point.modelUrl;
     if (url == null || url.isEmpty) return;
-    launchExternalArViewer(url, title: match.point.name);
+    launchArViewerWithProgress(
+      context,
+      url,
+      title: match.point.name,
+      errorMessage: 'AR görüntüleyici açılamadı',
+    );
   }
 
   void _onArUnavailable() {

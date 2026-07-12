@@ -1530,10 +1530,13 @@ class _PlaceDetailScreenState extends ConsumerState<PlaceDetailScreen>
                 child: OutlinedButton(
                   onPressed: () {
                     // Native AR (Scene Viewer / Quick Look) — in-app SceneView
-                    // render'ı orta-segment cihazlarda donduğu için.
-                    launchExternalArViewer(
+                    // render'ı orta-segment cihazlarda donduğu için. iOS'ta
+                    // .glb → .usdz dönüşümü sırasında spinner göster.
+                    launchArViewerWithProgress(
+                      context,
                       place.arModelUrl!,
                       title: place.name,
+                      errorMessage: 'AR görüntüleyici açılamadı',
                     );
                   },
                   style: OutlinedButton.styleFrom(
