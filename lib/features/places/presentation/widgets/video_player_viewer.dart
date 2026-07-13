@@ -137,10 +137,15 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
     // iOS (AVFoundation): sadece dispose oynatmayı durdurmuyor; ses arka planda
     // devam ediyordu. Sesi kıs + duraklat + başa sar → AVPlayer anında susar,
     // ekrandan çıkıldığı an video sıfırlanır (kullanıcı isteği).
-    if (_controllerCreated) {
-      _controller.setVolume(0);
-      _controller.pause();
-      _controller.seekTo(Duration.zero);
+    // NOT: Yalnızca `initialize()` tamamlandıysa oynatıcıya dokun — hazır
+    // olmayan controller'da `seekTo`/`pause` iOS'ta HATA fırlatabiliyor. Ayrıca
+    // try/catch: teardown'daki hiçbir hata kapatmayı (pop) ASLA engellemesin.
+    if (_controllerCreated && _isInitialized) {
+      try {
+        _controller.setVolume(0);
+        _controller.pause();
+        _controller.seekTo(Duration.zero);
+      } catch (_) {/* kapatmayı bloklama */}
     }
     // Üst bar / sistem çubuklarını geri getir — video sayfasından çıkıldığı an.
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
@@ -152,10 +157,17 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
   void _dismiss() {
     if (_closing) return;
     _closing = true;
-    _teardownPlayback();
-    // Push `rootNavigator: true` ile yapıldığı için pop da root'tan.
-    final nav = Navigator.of(context, rootNavigator: true);
-    if (nav.canPop()) nav.pop();
+    // Teardown pop'u ASLA engellememeli (yukarıda zaten try/catch'li; burada da
+    // ayrıca korunuyoruz). Kapatma her koşulda gerçekleşsin.
+    try {
+      _teardownPlayback();
+    } catch (_) {}
+    // Orijinal, iOS+Android'de çalışan kapatma yolu: en yakın Navigator (bu
+    // route root'a push edildiği için zaten root Navigator'dır). `rootNavigator:
+    // true` + `canPop()` guard'ı iOS'ta kapatmayı bozuyordu → sade `pop`.
+    if (mounted) {
+      Navigator.of(context).pop();
+    }
   }
 
   void _togglePlayPause() {
