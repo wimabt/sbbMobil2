@@ -173,7 +173,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> with SecureScreenMixin<Ot
     );
 
     if (!context.mounted) return;
-    context.go('/register');
+    // go() tüm yığını sıfırlayıp tek sayfa bırakıyordu; kayıt ekranından
+    // geri hareketi uygulamayı kapatıyordu. pushReplacement OTP'yi kayıt
+    // ile değiştirir, altındaki yığın (login → profil → ana sayfa) korunur.
+    context.pushReplacement('/register');
   }
 
   @override

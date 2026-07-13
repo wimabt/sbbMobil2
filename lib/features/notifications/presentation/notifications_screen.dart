@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/routing/navigation_utils.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../data/models/models.dart';
 import '../../../data/repositories/repositories.dart';
@@ -52,8 +53,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         title: Text(context.l10n.titleNotifications),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () =>
-              context.canPop() ? context.pop() : context.go('/home'),
+          onPressed: () => context.popOrHome(),
         ),
       ),
       body: RefreshIndicator(

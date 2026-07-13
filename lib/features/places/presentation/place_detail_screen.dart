@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/routing/navigation_utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -603,11 +604,9 @@ class _PlaceDetailScreenState extends ConsumerState<PlaceDetailScreen>
     final baseUrl = config.baseUrl;
 
     return PopScope(
-      canPop: true,
+      canPop: context.canPop(),
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && context.canPop()) {
-          context.pop();
-        }
+        if (!didPop) context.popOrHome();
       },
       child: Scaffold(
         extendBody: true,

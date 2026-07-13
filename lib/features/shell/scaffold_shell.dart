@@ -46,14 +46,21 @@ class ScaffoldShell extends StatelessWidget {
   static const _mapRoute = '/map';
 
   // All valid routes for navigation
-  static const _validRoutes = ['/', '/places', '/announcements', '/profile', '/map'];
+  static const _validRoutes = [
+    '/',
+    '/places',
+    '/announcements',
+    '/profile',
+    '/map',
+  ];
 
   String? _activeRoute(String location) {
     // Check each valid route
     for (final route in _validRoutes) {
       if (route == '/' && location == '/') {
         return route;
-      } else if (route != '/' && (location == route || location.startsWith('$route/'))) {
+      } else if (route != '/' &&
+          (location == route || location.startsWith('$route/'))) {
         return route;
       }
     }
@@ -70,20 +77,28 @@ class ScaffoldShell extends StatelessWidget {
     final isMapActive = activeRoute == _mapRoute;
     final colorScheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     // Get localized nav items
     final leftTabs = _getLeftTabs(context);
     final rightTabs = _getRightTabs(context);
-    
+
     // Compact mode for map screen
     final fabSize = isMapActive ? AppNavBar.compactFabSize : AppNavBar.fabSize;
-    final navBarHeight = isMapActive ? AppNavBar.compactHeight : AppNavBar.height;
+    final navBarHeight = isMapActive
+        ? AppNavBar.compactHeight
+        : AppNavBar.height;
     final iconSize = isMapActive ? 20.0 : 28.0;
     final notchMargin = isMapActive ? 6.0 : 10.0;
 
+    // NOT: Sistem geri politikası (sekmede geri → ana sayfa) burada DEĞİL,
+    // app_router'daki PopOrHomeScope sarmalayıcılarında uygulanır. Shell
+    // seviyesindeki PopScope, Android predictive back'in "framework geri
+    // işleyebilir mi?" kararına katılamadığı için çalışmaz.
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Klavye açıldığında harita butonunun sabit kalması için
-      extendBodyBehindAppBar: true, // Body'yi AppBar arkasına uzat (OS bar değişimleri top padding'i etkilemesin)
+      resizeToAvoidBottomInset:
+          false, // Klavye açıldığında harita butonunun sabit kalması için
+      extendBodyBehindAppBar:
+          true, // Body'yi AppBar arkasına uzat (OS bar değişimleri top padding'i etkilemesin)
       body: Column(
         children: [
           // Çevrimdışı uyarı bandı — bağlantı kesilince animasyonlu kayar
@@ -147,9 +162,7 @@ class ScaffoldShell extends StatelessWidget {
         shape: const CircularNotchedRectangle(),
         notchMargin: notchMargin,
         elevation: 8,
-        color: isDark 
-            ? colorScheme.surfaceContainer
-            : colorScheme.surface,
+        color: isDark ? colorScheme.surfaceContainer : colorScheme.surface,
         shadowColor: Colors.black.withValues(alpha: 0.15),
         padding: EdgeInsets.zero,
         height: navBarHeight,
@@ -157,29 +170,33 @@ class ScaffoldShell extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // Left side icons
-            ...leftTabs.map((item) => _NavButton(
-                  item: item,
-                  isActive: activeRoute == item.route,
-                  isCompact: isMapActive,
-                  onTap: () {
-                    Haptics.light();
-                    context.go(item.route);
-                  },
-                )),
-            
+            ...leftTabs.map(
+              (item) => _NavButton(
+                item: item,
+                isActive: activeRoute == item.route,
+                isCompact: isMapActive,
+                onTap: () {
+                  Haptics.light();
+                  context.go(item.route);
+                },
+              ),
+            ),
+
             // Spacing for the FAB
             SizedBox(width: fabSize),
-            
+
             // Right side icons
-            ...rightTabs.map((item) => _NavButton(
-                  item: item,
-                  isActive: activeRoute == item.route,
-                  isCompact: isMapActive,
-                  onTap: () {
-                    Haptics.light();
-                    context.go(item.route);
-                  },
-                )),
+            ...rightTabs.map(
+              (item) => _NavButton(
+                item: item,
+                isActive: activeRoute == item.route,
+                isCompact: isMapActive,
+                onTap: () {
+                  Haptics.light();
+                  context.go(item.route);
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -205,11 +222,11 @@ class _NavButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final activeColor = colorScheme.primary;
     final inactiveColor = Theme.of(context).hintColor;
-    
+
     final height = isCompact ? AppNavBar.compactHeight : AppNavBar.height;
     final iconSize = isCompact ? 20.0 : 24.0;
-    final padding = isCompact 
-        ? const EdgeInsets.symmetric(horizontal: 12, vertical: 2) 
+    final padding = isCompact
+        ? const EdgeInsets.symmetric(horizontal: 12, vertical: 2)
         : const EdgeInsets.symmetric(horizontal: 16, vertical: 4);
 
     return Expanded(
@@ -225,7 +242,7 @@ class _NavButton extends StatelessWidget {
                 duration: const Duration(milliseconds: 200),
                 padding: padding,
                 decoration: BoxDecoration(
-                  color: isActive 
+                  color: isActive
                       ? activeColor.withValues(alpha: 0.12)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(16),
@@ -271,6 +288,3 @@ class _NavItem {
   final IconData activeIcon;
   final String route;
 }
-
-
-

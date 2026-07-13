@@ -50,6 +50,7 @@ import '../../features/not_found/presentation/not_found_screen.dart';
 import '../services/analytics_route_observer.dart';
 import '../services/analytics_service.dart';
 import 'deep_link_validator.dart';
+import 'navigation_utils.dart';
 import '../widgets/stable_system_padding.dart';
 import '../utils/layout_debugger.dart';
 
@@ -69,7 +70,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     observers: [rootAnalyticsObserver],
     errorBuilder: (context, state) => const NotFoundScreen(),
     redirect: (context, state) {
-      final deepGuard = DeepLinkValidator.redirectIfInvalidPublicDeepLink(state.uri);
+      final deepGuard = DeepLinkValidator.redirectIfInvalidPublicDeepLink(
+        state.uri,
+      );
       if (deepGuard != null) return deepGuard;
 
       final loc = state.uri.toString();
@@ -78,7 +81,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // Auth/staff/onboarding ekranları zaten dışarıda kalır.
       final onboardingDone = ref.read(onboardingProvider).isCompleted;
       final isOnboarding = loc.startsWith('/onboarding');
-      final isAuthFlow = loc == '/login' ||
+      final isAuthFlow =
+          loc == '/login' ||
           loc.startsWith('/register') ||
           loc.startsWith('/otp');
       final isStaffRoute = loc.startsWith('/staff');
@@ -141,9 +145,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: ':docId',
             name: 'legal-document',
-            builder: (context, state) => LegalDocumentScreen(
-              docId: state.pathParameters['docId']!,
-            ),
+            builder: (context, state) =>
+                LegalDocumentScreen(docId: state.pathParameters['docId']!),
           ),
         ],
       ),
@@ -166,9 +169,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // Teşhis bittikten sonra enabled: false yap veya satırı sil.
           return LayoutDebuggerOverlay(
             enabled: false, // ← Teşhis tamamlandı, kapatıldı
-            child: StableSystemPadding(
-              child: ScaffoldShell(child: child),
-            ),
+            child: StableSystemPadding(child: ScaffoldShell(child: child)),
           );
         },
         routes: [
@@ -178,17 +179,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: HomeScreen()),
           ),
+          // NOT: Ana sayfa ('/') dışındaki tüm shell rotaları PopOrHomeScope
+          // ile sarılır: yığın boşken sistem geri hareketi uygulamayı
+          // kapatmak yerine ana sayfaya döndürür. Uygulamadan çıkış yalnızca
+          // ana sayfadan geri ile olur.
           GoRoute(
             path: '/map',
             name: 'map',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MapScreen()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PopOrHomeScope(child: MapScreen()),
+            ),
           ),
           GoRoute(
             path: '/announcements',
             name: 'announcements',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: AnnouncementsScreen()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PopOrHomeScope(child: AnnouncementsScreen()),
+            ),
             routes: [
               GoRoute(
                 path: ':id',
@@ -210,15 +217,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/notifications',
             name: 'notifications',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: NotificationsScreen()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PopOrHomeScope(child: NotificationsScreen()),
+            ),
           ),
           // Şehir Rehberi & Blog
           GoRoute(
             path: '/blog',
             name: 'blog',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: BlogListScreen()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PopOrHomeScope(child: BlogListScreen()),
+            ),
             routes: [
               GoRoute(
                 path: ':slug',
@@ -241,8 +250,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             GoRoute(
               path: '/campaigns',
               name: 'campaigns',
-              pageBuilder: (context, state) =>
-                  const NoTransitionPage(child: CampaignsScreen()),
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: PopOrHomeScope(child: CampaignsScreen()),
+              ),
               routes: [
                 GoRoute(
                   path: ':id',
@@ -258,22 +268,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/profile',
             name: 'profile',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: ProfileScreen()),
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PopOrHomeScope(child: ProfileScreen()),
+            ),
           ),
           GoRoute(
             path: '/settings',
             name: 'settings',
-            builder: (context, state) => const SettingsScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: SettingsScreen()),
           ),
 
           // Other sections (outside bottom tabs but same shell)
           GoRoute(
             path: '/places',
             name: 'places',
-            builder: (context, state) => PlacesScreen(
-              initialCategorySlug: state.uri.queryParameters['category'],
-              initialSearchQuery: state.uri.queryParameters['q'],
+            builder: (context, state) => PopOrHomeScope(
+              child: PlacesScreen(
+                initialCategorySlug: state.uri.queryParameters['category'],
+                initialSearchQuery: state.uri.queryParameters['q'],
+              ),
             ),
             routes: [
               GoRoute(
@@ -295,7 +309,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/routes',
             name: 'routes',
-            builder: (context, state) => const RoutesScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: RoutesScreen()),
             routes: [
               GoRoute(
                 path: ':id',
@@ -311,7 +326,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/recipes',
             name: 'recipes',
-            builder: (context, state) => const RecipesScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: RecipesScreen()),
             routes: [
               GoRoute(
                 path: ':id',
@@ -327,7 +343,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/events',
             name: 'events',
-            builder: (context, state) => const EventsScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: EventsScreen()),
             routes: [
               GoRoute(
                 path: ':id',
@@ -343,19 +360,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/favorites',
             name: 'favorites',
-            builder: (context, state) => const FavoritesScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: FavoritesScreen()),
           ),
           // Hesap Bilgileri — e-posta doğrulama + (ileride) e-posta/telefon değiştirme
           GoRoute(
             path: '/account',
             name: 'account',
-            builder: (context, state) => const AccountScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: AccountScreen()),
           ),
           // §6.5.2 — Gezi planları
           GoRoute(
             path: '/itinerary',
             name: 'itinerary-list',
-            builder: (context, state) => const ItinerariesScreen(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: ItinerariesScreen()),
             routes: [
               GoRoute(
                 path: ':id',
@@ -391,12 +411,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/debug/points',
             name: 'debug-points',
-            builder: (context, state) => const PointTestPanel(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: PointTestPanel()),
           ),
           GoRoute(
             path: '/debug/route-stops',
             name: 'debug-route-stops',
-            builder: (context, state) => const RouteStopTestPanel(),
+            builder: (context, state) =>
+                const PopOrHomeScope(child: RouteStopTestPanel()),
           ),
         ],
       ),
@@ -443,5 +465,3 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-
-

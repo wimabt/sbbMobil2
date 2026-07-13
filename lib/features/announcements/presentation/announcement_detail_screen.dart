@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/routing/navigation_utils.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import '../../../core/design/design_tokens.dart';
@@ -29,9 +30,7 @@ class AnnouncementDetailScreen extends ConsumerWidget {
       return PopScope(
         canPop: context.canPop(),
         onPopInvokedWithResult: (didPop, result) {
-          if (!didPop && context.canPop()) {
-            context.pop();
-          }
+          if (!didPop) context.popOrHome();
         },
         child: Scaffold(
           backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
@@ -49,9 +48,7 @@ class AnnouncementDetailScreen extends ConsumerWidget {
     return PopScope(
       canPop: context.canPop(),
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && context.canPop()) {
-          context.pop();
-        }
+        if (!didPop) context.popOrHome();
       },
       child: Scaffold(
         backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,

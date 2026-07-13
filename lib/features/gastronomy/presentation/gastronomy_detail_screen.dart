@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/routing/navigation_utils.dart';
 
 import '../../../core/design/design_tokens.dart';
 import '../../../core/services/analytics_events.dart';
@@ -70,9 +71,7 @@ class _GastronomyDetailScreenState extends ConsumerState<GastronomyDetailScreen>
     return PopScope(
       canPop: context.canPop(),
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && context.canPop()) {
-          context.pop();
-        }
+        if (!didPop) context.popOrHome();
       },
       child: gastronomyAsync.when(
         loading: () => Scaffold(
@@ -278,7 +277,9 @@ class _GastronomyDetailScreenState extends ConsumerState<GastronomyDetailScreen>
           icon: Icons.arrow_back,
           backgroundColor: buttonBgColor,
           iconColor: buttonIconColor,
-          onPressed: () => context.pop(),
+          // Bildirim derin bağlantısıyla açıldığında yığında üst sayfa
+          // olmayabilir; pop yerine güvenli geri kullan.
+          onPressed: () => context.popOrHome(),
         ),
       ),
       actions: [

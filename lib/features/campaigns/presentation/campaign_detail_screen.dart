@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/routing/navigation_utils.dart';
 
 import '../../../../core/design/design_tokens.dart';
 import '../../../../core/widgets/circular_icon_button.dart';
@@ -68,7 +69,7 @@ class _CampaignDetailScreenState extends ConsumerState<CampaignDetailScreen> {
     return PopScope(
       canPop: context.canPop(),
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop && context.canPop()) context.pop();
+        if (!didPop) context.popOrHome();
       },
       child: Scaffold(
         backgroundColor:

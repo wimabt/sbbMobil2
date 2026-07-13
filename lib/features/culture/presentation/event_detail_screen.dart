@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/routing/navigation_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/design/design_tokens.dart';
@@ -47,7 +48,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
     return PopScope(
       canPop: context.canPop(),
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop && context.canPop()) context.pop();
+        if (!didPop) context.popOrHome();
       },
       child: Scaffold(
         backgroundColor:
