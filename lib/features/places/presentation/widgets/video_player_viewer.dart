@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../../l10n/l10n.dart';
@@ -278,11 +280,24 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
                       ],
                     ),
                   ),
+                  // iOS FIX: Çarpı, çentik/Dynamic Island bölgesinin İÇİNE
+                  // çiziliyordu (top: 0 + SafeArea yok) — o bölgede dokunuşları
+                  // iOS sistemi yutar, onPressed HİÇ tetiklenmez ("çarpı
+                  // kapatmıyor"un gerçek nedeni). `viewPadding` kullanıyoruz
+                  // çünkü immersive modda `padding` sıfırlanabilir ama fiziksel
+                  // çentik inseti `viewPadding`'te her zaman durur.
+                  padding: EdgeInsets.only(
+                    top: math.max(
+                        MediaQuery.viewPaddingOf(context).top, 8),
+                  ),
                   child: Row(
                     children: [
                       IconButton(
                         icon: const Icon(Icons.close, color: Colors.white, size: 28),
                         onPressed: _dismiss,
+                        // Dokunma alanını büyüt — kenara yakın küçük hedefte
+                        // ıskalamayı azaltır.
+                        padding: const EdgeInsets.all(12),
                       ),
                       const Spacer(),
                     ],
@@ -341,7 +356,14 @@ class _VideoPlayerViewerState extends ConsumerState<VideoPlayerViewer> {
                       ],
                     ),
                   ),
-                  padding: const EdgeInsets.all(16),
+                  // Alt inset: iOS home-indicator / Android jest çubuğu ile
+                  // çakışmasın (üst bardaki çentik düzeltmesiyle aynı mantık).
+                  padding: EdgeInsets.fromLTRB(
+                    16,
+                    16,
+                    16,
+                    math.max(MediaQuery.viewPaddingOf(context).bottom, 16),
+                  ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
