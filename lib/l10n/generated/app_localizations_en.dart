@@ -113,6 +113,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lblAll => 'All';
 
   @override
+  String get lblSubcategories => 'Subcategories';
+
+  @override
+  String get btnClear => 'Clear';
+
+  @override
+  String get placesSubcategoryFilterHint => 'Narrow by subcategory';
+
+  @override
+  String placesSubcategoriesSelected(int count) {
+    return '$count subcategories selected';
+  }
+
+  @override
   String get lblFilter => 'Filter';
 
   @override

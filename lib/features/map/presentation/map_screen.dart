@@ -29,6 +29,7 @@ import 'providers/map_camera_provider.dart';
 import 'providers/route_navigation_provider.dart';
 import 'providers/route_intent_provider.dart';
 import 'providers/route_places_on_route_only_intent_provider.dart';
+import '../../../core/utils/subcategory_labels.dart';
 import 'utils/map_cluster_manager.dart';
 import 'utils/map_styles.dart';
 import 'utils/marker_builder.dart';
@@ -42,9 +43,22 @@ class MapScreen extends ConsumerStatefulWidget {
 }
 
 class _MapScreenState extends ConsumerState<MapScreen> {
+  /// Alt kategori filtresi görünüm varyantı (karşılaştırma için iki
+  /// uygulama da kodda mevcut):
+  /// * `false` (aktif): kategori chip'lerinin altında yatay alt kategori
+  ///   chip satırı.
+  /// * `true`: arama yanındaki liste butonu, alt kategori varken filtre
+  ///   butonuna dönüşür ve bottom sheet açar (liste butonu o sırada gizlenir).
+  static const bool _kSubcategoryFilterAsButton = false;
+
   GoogleMapController? _mapController;
   String? _mapError;
   String? _selectedCategory;
+  // Alt kategori filtresi — seçili kategorinin alt kategori slug'ları.
+  // Çoklu seçim: kullanıcı "Müzeler" + "Ören Yerleri" gibi birden fazla
+  // alt kategoriyi aynı anda işaretleyebilir. Boş küme = alt kategori
+  // filtresi yok (kategorinin tamamı gösterilir).
+  final Set<String> _selectedSubcategorySlugs = {};
   String _searchQuery = ''; // Arama sorgusu
 
   static const LatLng _defaultCenter = LatLng(41.2867, 36.3300);
@@ -245,6 +259,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             address: place.address ?? '',
             position: LatLng(place.lat!, place.lng!),
             imageUrl: place.imageUrl,
+            // Alt kategori filtresi — ham API değerleri kanonik slug'a çevrilir
+            // (CMS bazen slug yerine "Sivil Yapılar" gibi ham ad döndürüyor).
+            subcategories: place.subcategories
+                .map(SubcategoryLabels.canonicalSlug)
+                .where((s) => s.isNotEmpty)
+                .toList(),
           );
         }).toList();
       } else {
@@ -255,7 +275,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         int currentPage = 1;
         bool hasMore = true;
         const pageLimit = 100;
-        const mapFields = 'id,name,category_id,category,description,address,lat,lng,image_url,thumbnail_url,rating,review_count,featured';
+        // ── ESKİ (alt kategori filtresi öncesi) — geri dönüş için saklandı ──
+        // const mapFields = 'id,name,category_id,category,description,address,lat,lng,image_url,thumbnail_url,rating,review_count,featured';
+        const mapFields = 'id,name,category_id,category,subcategories,description,address,lat,lng,image_url,thumbnail_url,rating,review_count,featured';
 
         while (hasMore) {
           final placesResponse = await repository.getPlaces(
@@ -305,6 +327,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                   address: place.address ?? '',
                   position: LatLng(place.lat!, place.lng!),
                   imageUrl: place.imageUrl,
+                  // Alt kategori filtresi — kanonik slug'lar (yukarıdaki
+                  // cache'li yol ile aynı normalize kuralı).
+                  subcategories: place.subcategories
+                      .map(SubcategoryLabels.canonicalSlug)
+                      .where((s) => s.isNotEmpty)
+                      .toList(),
                 );
               }),
             );
@@ -652,15 +680,55 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     );
   }
 
+  // ── ESKİ (alt kategori filtresi öncesi) — geri dönüş için saklandı ──
+  // void _onCategorySelected(String category) {
+  //   // Check if it's "All" category by ID or label (supports both languages)
+  //   final isAllCategory = category == context.l10n.lblAll ||
+  //                        category == 'All' ||
+  //                        category == 'all';
+  //   setState(() {
+  //     _selectedCategory = isAllCategory ? null : category;
+  //   });
+  //   // Filtreleri uygula (kategori + arama)
+  //   _applyFilters();
+  // }
   void _onCategorySelected(String category) {
     // Check if it's "All" category by ID or label (supports both languages)
-    final isAllCategory = category == context.l10n.lblAll || 
-                         category == 'All' || 
+    final isAllCategory = category == context.l10n.lblAll ||
+                         category == 'All' ||
                          category == 'all';
     setState(() {
       _selectedCategory = isAllCategory ? null : category;
+      // Kategori değişince alt kategori seçimi anlamını yitirir — sıfırla.
+      // (Aynı kategoriye tekrar basılması da temiz başlangıç sayılır.)
+      _selectedSubcategorySlugs.clear();
     });
     // Filtreleri uygula (kategori + arama)
+    _applyFilters();
+  }
+
+  /// Alt kategori chip'ine basıldığında toggle (çoklu seçim).
+  void _onSubcategoryToggled(String slug) {
+    setState(() {
+      if (!_selectedSubcategorySlugs.remove(slug)) {
+        _selectedSubcategorySlugs.add(slug);
+      }
+    });
+
+    // mobile_analytics_todo.md §2.6 — filter_applied (places ekranı ile
+    // aynı event; scope alt kategoriyi ayırt eder).
+    ref.read(analyticsServiceProvider).track(
+      AnalyticsEvents.filterApplied,
+      properties: {'scope': 'map_subcategory', 'value': slug},
+    );
+
+    _applyFilters();
+  }
+
+  /// Tüm alt kategori seçimlerini temizle (bottom sheet "Temizle" butonu).
+  void _onSubcategoriesCleared() {
+    if (_selectedSubcategorySlugs.isEmpty) return;
+    setState(() => _selectedSubcategorySlugs.clear());
     _applyFilters();
   }
 
@@ -729,6 +797,18 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           }).toList();
           debugPrint(
               '🗺️ [MapScreen] Local category filter: ${filteredPlaces.length} places');
+
+          // 1b. Alt kategori filtresi (local) — yalnızca bir kategori
+          // seçiliyken anlamlı. Çoklu seçim OR mantığıyla çalışır:
+          // seçili alt kategorilerden en az birine sahip place'ler kalır.
+          if (_selectedSubcategorySlugs.isNotEmpty) {
+            filteredPlaces = filteredPlaces.where((place) {
+              return place.subcategories
+                  .any(_selectedSubcategorySlugs.contains);
+            }).toList();
+            debugPrint(
+                '🗺️ [MapScreen] Local subcategory filter: ${filteredPlaces.length} places');
+          }
         }
       }
 
@@ -864,6 +944,47 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     return filtered;
   }
 
+  /// Seçili kategorinin alt kategori seçeneklerini üretir.
+  ///
+  /// **Neden client-side?** CMS kategori yanıtında alt kategori listesi yok
+  /// (`/categories/{id}/subcategories` boş dönüyor); alt kategoriler yalnız
+  /// place'lerin `subcategories` alanında slug olarak geliyor. Bu yüzden
+  /// yüklü place'lerden distinct slug'lar toplanır — böylece yalnızca içinde
+  /// gerçekten place olan alt kategoriler chip olarak görünür.
+  /// Sıralama: place sayısı çok olan önce, eşitse alfabetik.
+  List<MapSubcategoryOption> _getSubcategoriesForSelectedCategory() {
+    if (_selectedCategory == null) return const [];
+
+    final selectedCat = _categories.firstWhere(
+      (cat) => cat.label == _selectedCategory || cat.id == _selectedCategory,
+      orElse: () => const PlaceCategory(id: '', label: ''),
+    );
+    if (selectedCat.id.isEmpty || selectedCat.id == 'all') return const [];
+
+    final counts = <String, int>{};
+    for (final place in _allMapPlaces) {
+      if (place.categoryId != selectedCat.id) continue;
+      for (final slug in place.subcategories) {
+        counts[slug] = (counts[slug] ?? 0) + 1;
+      }
+    }
+    if (counts.isEmpty) return const [];
+
+    final isTr = ref.read(localeProvider).locale.languageCode == 'tr';
+    final options = counts.entries
+        .map((e) => MapSubcategoryOption(
+              slug: e.key,
+              label: SubcategoryLabels.label(e.key, isTr: isTr),
+              count: e.value,
+            ))
+        .toList()
+      ..sort((a, b) {
+        final byCount = b.count.compareTo(a.count);
+        return byCount != 0 ? byCount : a.label.compareTo(b.label);
+      });
+    return options;
+  }
+
 
   /// Mevcut place'lerin kategori etiketlerini güncelle (dil değiştiğinde)
   void _remapPlaceCategories() {
@@ -890,6 +1011,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             address: place.address,
             position: place.position,
             imageUrl: place.imageUrl,
+            subcategories: place.subcategories,
           );
         }
       }
@@ -1000,6 +1122,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     final showStopsFilterBar =
         routeStopsIntent != null && _showPlacesOnRouteOnly;
 
+    // Seçili kategorinin alt kategorileri (boşsa chip satırı görünmez).
+    final subcategoryOptions = _getSubcategoriesForSelectedCategory();
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -1011,16 +1136,37 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             )
           else
             _buildGoogleMap(),
+          // ── ESKİ (alt kategori filtresi öncesi) — geri dönüş için saklandı ──
+          // MapSearchHeader(
+          //   categories: _getFilteredCategories(),
+          //   selectedCategory: _selectedCategory ??
+          //       (ref.read(localeProvider).locale.languageCode == 'tr' ? context.l10n.lblAll : 'All'),
+          //   onCategorySelected: _onCategorySelected,
+          //   onSearch: _onSearchSubmitted,
+          //   onSearchChanged: _onSearchChanged,
+          // ),
+          // _buildMyLocationButton(hasRoute: routeData != null),
+          // _buildHeatmapToggleButton(),
           MapSearchHeader(
             categories: _getFilteredCategories(),
-            selectedCategory: _selectedCategory ?? 
+            selectedCategory: _selectedCategory ??
                 (ref.read(localeProvider).locale.languageCode == 'tr' ? context.l10n.lblAll : 'All'),
             onCategorySelected: _onCategorySelected,
             onSearch: _onSearchSubmitted,
             onSearchChanged: _onSearchChanged,
+            subcategories: subcategoryOptions,
+            selectedSubcategorySlugs: _selectedSubcategorySlugs,
+            onSubcategoryToggled: _onSubcategoryToggled,
+            onSubcategoriesCleared: _onSubcategoriesCleared,
+            subcategoryFilterAsButton: _kSubcategoryFilterAsButton,
           ),
           _buildMyLocationButton(hasRoute: routeData != null),
-          _buildHeatmapToggleButton(),
+          _buildHeatmapToggleButton(
+            // Chip satırı yalnız satır varyantında yer kaplar; buton
+            // varyantında heatmap butonu eski konumunda kalır.
+            hasSubcategoryRow: !_kSubcategoryFilterAsButton &&
+                subcategoryOptions.isNotEmpty,
+          ),
           _buildBottomGradient(),
           // Place bottom sheet modal
           if (_selectedPlace != null) _buildPlaceModal(),
@@ -1271,7 +1417,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   /// `mobile_pending_changes.md` B4 — Heatmap (Isı haritası) toggle butonu.
   /// Sağ üst köşe; search header'ın altına yerleşir. Açıkken vurgulu renk.
-  Widget _buildHeatmapToggleButton() {
+  /// [hasSubcategoryRow] true ise alt kategori chip satırı görünür durumda —
+  /// buton, satırın altında kalacak şekilde aşağı kaydırılır.
+  Widget _buildHeatmapToggleButton({bool hasSubcategoryRow = false}) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     // Active rengi marka primary — eskiden dark'ta neonOrange kullanılıyordu,
     // ısı haritası kavramı için turuncu hoş ama tema tutarlılığı için yeşil.
@@ -1279,8 +1427,17 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
     // Search bar (~52) + spacing (~12) + chip strip (~40) + spacing (~12) +
     // güvenlik buffer (~40) = ~156. Her ekran oranında chip'in altında kalır.
-    return Positioned(
-      top: MediaQuery.of(context).padding.top + 156,
+    // Alt kategori satırı açıkken +44 (satır ~36 + spacing ~8).
+    // AnimatedPositioned: satır açılıp kapanırken buton yumuşak kayar
+    // (header'daki AnimatedSize ile aynı süre/curve).
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOutCubic,
+      // ── ESKİ (alt kategori filtresi öncesi) — geri dönüş için saklandı ──
+      // top: MediaQuery.of(context).padding.top + 156,
+      top: MediaQuery.of(context).padding.top +
+          156 +
+          (hasSubcategoryRow ? 44 : 0),
       right: 16,
       child: Container(
         decoration: BoxDecoration(

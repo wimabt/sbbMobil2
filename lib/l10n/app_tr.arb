@@ -179,6 +179,29 @@
     "description": "Label: All categories"
   },
 
+  "lblSubcategories": "Alt Kategoriler",
+  "@lblSubcategories": {
+    "description": "Label: Subcategories section title (map/places filter)"
+  },
+
+  "btnClear": "Temizle",
+  "@btnClear": {
+    "description": "Button: Clear current selection (short)"
+  },
+
+  "placesSubcategoryFilterHint": "Alt kategoriye göre daralt",
+  "@placesSubcategoryFilterHint": {
+    "description": "Places screen: discoverable hint bar prompting subcategory filtering"
+  },
+
+  "placesSubcategoriesSelected": "{count} alt kategori seçili",
+  "@placesSubcategoriesSelected": {
+    "description": "Places screen: number of selected subcategories",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
   "lblFilter": "Filtrele",
   "@lblFilter": {
     "description": "Label: Filter"

@@ -25,6 +25,15 @@ import '../design/design_tokens.dart';
 ///   ),
 /// );
 /// ```
+/// [showAppSortMenu]'nun opsiyonel çoklu seçim bölümü için seçenek.
+/// (Yerler ekranı: alt kategori filtresi — sıralamanın altında ek bölüm.)
+class AppMenuMultiOption {
+  const AppMenuMultiOption({required this.value, required this.label});
+
+  final String value;
+  final String label;
+}
+
 Future<void> showAppSortMenu<T>({
   required BuildContext context,
   required GlobalKey anchorKey,
@@ -33,6 +42,17 @@ Future<void> showAppSortMenu<T>({
   required String Function(T) labelOf,
   required ValueChanged<T> onSelected,
   Map<T, IconData>? icons,
+  // ── Opsiyonel çoklu seçim bölümü (ör. alt kategoriler) ──────────────
+  // Sıralama listesinin ALTINA ayrı bir başlıklı bölüm ekler. Chip'lere
+  // dokunmak menüyü kapatmaz (anında uygulanır); "Temizle" tüm seçimleri
+  // kaldırır. [multiOptions] boş/null ise bölüm hiç render edilmez.
+  String? multiSectionTitle,
+  IconData multiSectionIcon = Icons.account_tree_rounded,
+  List<AppMenuMultiOption>? multiOptions,
+  Set<String>? multiSelected,
+  ValueChanged<String>? onMultiToggled,
+  VoidCallback? onMultiCleared,
+  String? clearLabel,
 }) async {
   final theme = Theme.of(context);
   final isDark = theme.brightness == Brightness.dark;
@@ -58,6 +78,12 @@ Future<void> showAppSortMenu<T>({
   final surface = isDark ? AppColors.darkSurface : theme.colorScheme.surface;
   final primary = isDark ? AppColors.neonCyan : theme.colorScheme.primary;
   final textColor = theme.colorScheme.onSurface;
+
+  // Çoklu seçim bölümünün menü-içi görsel durumu. Caller (ör. Riverpod
+  // notifier) her toggle'da YENİ bir set üretebilir — menü açıkken dışarıdaki
+  // state'e erişemeyeceğimiz için yerel kopya tutulur ve callback ile
+  // paralel güncellenir.
+  final localSelected = Set<String>.of(multiSelected ?? const <String>{});
 
   final selected = await showMenu<T>(
     context: context,
@@ -133,10 +159,141 @@ Future<void> showAppSortMenu<T>({
             ),
           ),
         ),
+      // ── Çoklu seçim bölümü (ör. alt kategoriler) ────────────────────
+      if (multiOptions != null && multiOptions.isNotEmpty) ...[
+        const PopupMenuDivider(height: 1),
+        PopupMenuItem<T>(
+          enabled: false,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: StatefulBuilder(
+            builder: (ctx, setMenuState) {
+              final selected = localSelected;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 34,
+                    child: Row(
+                      children: [
+                        Icon(multiSectionIcon,
+                            size: 16,
+                            color: textColor.withValues(alpha: 0.55)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            multiSectionTitle ?? '',
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: textColor.withValues(alpha: 0.55),
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
+                        ),
+                        if (selected.isNotEmpty && onMultiCleared != null)
+                          GestureDetector(
+                            onTap: () {
+                              localSelected.clear();
+                              onMultiCleared();
+                              setMenuState(() {});
+                            },
+                            child: Text(
+                              clearLabel ?? 'Temizle',
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: primary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      for (final opt in multiOptions)
+                        _MenuMultiChip(
+                          label: opt.label,
+                          isSelected: selected.contains(opt.value),
+                          primary: primary,
+                          textColor: textColor,
+                          isDark: isDark,
+                          onTap: () {
+                            if (!localSelected.remove(opt.value)) {
+                              localSelected.add(opt.value);
+                            }
+                            onMultiToggled?.call(opt.value);
+                            setMenuState(() {});
+                          },
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              );
+            },
+          ),
+        ),
+      ],
     ],
   );
 
   if (selected != null && selected != current) {
     onSelected(selected);
+  }
+}
+
+/// Menü içi mini çoklu seçim chip'i — harita alt kategori chip'leriyle aynı
+/// dil: seçiliyken yumuşak primary ton + primary çerçeve, tik ikonu yok.
+class _MenuMultiChip extends StatelessWidget {
+  const _MenuMultiChip({
+    required this.label,
+    required this.isSelected,
+    required this.primary,
+    required this.textColor,
+    required this.isDark,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool isSelected;
+  final Color primary;
+  final Color textColor;
+  final bool isDark;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(999),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeOutCubic,
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? primary.withValues(alpha: isDark ? 0.22 : 0.10)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(
+            color: isSelected
+                ? primary.withValues(alpha: isDark ? 0.55 : 0.45)
+                : textColor.withValues(alpha: 0.15),
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+            color: isSelected ? primary : textColor.withValues(alpha: 0.8),
+            letterSpacing: -0.1,
+          ),
+        ),
+      ),
+    );
   }
 }

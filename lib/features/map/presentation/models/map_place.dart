@@ -17,6 +17,7 @@ class MapPlace {
     this.imageUrl,
     this.phone,
     this.isOpen,
+    this.subcategories = const [],
   });
 
   final String id;
@@ -26,6 +27,8 @@ class MapPlace {
   final String? categoryId; // Category ID for filtering
   final String? categorySlug; // Maki icon slug (for backward compatibility)
   final String? categoryIcon; // Icon string from API (e.g., "maki:restaurant", "fontawesome:hospital")
+  /// Kanonik alt kategori slug'ları (alt kategori filtresi için).
+  final List<String> subcategories;
   final double rating;
   final String distance;
   final String address;
@@ -50,6 +53,7 @@ class MapPlace {
     String? imageUrl,
     String? phone,
     bool? isOpen,
+    List<String>? subcategories,
   }) {
     return MapPlace(
       id: id ?? this.id,
@@ -66,6 +70,7 @@ class MapPlace {
       imageUrl: imageUrl ?? this.imageUrl,
       phone: phone ?? this.phone,
       isOpen: isOpen ?? this.isOpen,
+      subcategories: subcategories ?? this.subcategories,
     );
   }
 

@@ -113,6 +113,20 @@ class AppLocalizationsTr extends AppLocalizations {
   String get lblAll => 'Tümü';
 
   @override
+  String get lblSubcategories => 'Alt Kategoriler';
+
+  @override
+  String get btnClear => 'Temizle';
+
+  @override
+  String get placesSubcategoryFilterHint => 'Alt kategoriye göre daralt';
+
+  @override
+  String placesSubcategoriesSelected(int count) {
+    return '$count alt kategori seçili';
+  }
+
+  @override
   String get lblFilter => 'Filtrele';
 
   @override

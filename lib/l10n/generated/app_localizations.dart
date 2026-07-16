@@ -302,6 +302,30 @@ abstract class AppLocalizations {
   /// **'Tümü'**
   String get lblAll;
 
+  /// Label: Subcategories section title (map/places filter)
+  ///
+  /// In tr, this message translates to:
+  /// **'Alt Kategoriler'**
+  String get lblSubcategories;
+
+  /// Button: Clear current selection (short)
+  ///
+  /// In tr, this message translates to:
+  /// **'Temizle'**
+  String get btnClear;
+
+  /// Places screen: discoverable hint bar prompting subcategory filtering
+  ///
+  /// In tr, this message translates to:
+  /// **'Alt kategoriye göre daralt'**
+  String get placesSubcategoryFilterHint;
+
+  /// Places screen: number of selected subcategories
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} alt kategori seçili'**
+  String placesSubcategoriesSelected(int count);
+
   /// Label: Filter
   ///
   /// In tr, this message translates to:

@@ -51,6 +51,15 @@
     }
   },
   "lblAll": "All",
+  "lblSubcategories": "Subcategories",
+  "btnClear": "Clear",
+  "placesSubcategoryFilterHint": "Narrow by subcategory",
+  "placesSubcategoriesSelected": "{count} subcategories selected",
+  "@placesSubcategoriesSelected": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "lblFilter": "Filter",
   "lblSort": "Sort",
   "lblDate": "Date",

@@ -10,6 +10,7 @@ import '../../../core/services/analytics_service.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../core/design/design_tokens.dart';
 import '../../../core/utils/image_url_helper.dart';
+import '../../../core/utils/subcategory_labels.dart';
 import '../../../l10n/l10n.dart';
 import '../../../data/models/models.dart';
 import '../../../api/api.dart';
@@ -442,6 +443,26 @@ class _PlacesHeader extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               // Search bar
+              // ── ESKİ (alt kategori bölümü öncesi) — geri dönüş için ──
+              // AppSearchBar(
+              //   hintText: context.l10n.lblSearchPlaces,
+              //   showFilterButton: true,
+              //   controller: searchController,
+              //   onChanged: notifier.search,
+              //   // §6.4.5 — sıralama artık arama yanındaki filtre butonunda.
+              //   filterButtonKey: sortMenuKey,
+              //   isFilterActive: state.sortMode != PlaceSortMode.recommended,
+              //   onFilterTap: sortMenuKey == null
+              //       ? null
+              //       : () => showAppSortMenu<PlaceSortMode>(
+              //             context: context,
+              //             anchorKey: sortMenuKey!,
+              //             current: state.sortMode,
+              //             values: PlaceSortMode.values,
+              //             labelOf: (m) => placeSortLabel(context.l10n, m),
+              //             onSelected: notifier.setSortMode,
+              //           ),
+              // ),
               AppSearchBar(
                 hintText: context.l10n.lblSearchPlaces,
                 showFilterButton: true,
@@ -449,17 +470,12 @@ class _PlacesHeader extends ConsumerWidget {
                 onChanged: notifier.search,
                 // §6.4.5 — sıralama artık arama yanındaki filtre butonunda.
                 filterButtonKey: sortMenuKey,
-                isFilterActive: state.sortMode != PlaceSortMode.recommended,
+                isFilterActive:
+                    state.sortMode != PlaceSortMode.recommended ||
+                        state.selectedSubcategorySlugs.isNotEmpty,
                 onFilterTap: sortMenuKey == null
                     ? null
-                    : () => showAppSortMenu<PlaceSortMode>(
-                          context: context,
-                          anchorKey: sortMenuKey!,
-                          current: state.sortMode,
-                          values: PlaceSortMode.values,
-                          labelOf: (m) => placeSortLabel(context.l10n, m),
-                          onSelected: notifier.setSortMode,
-                        ),
+                    : () => _showFilterMenu(context, ref, state, notifier),
               ),
               const SizedBox(height: 16),
               // Kategori pill'leri (sıralama yukarı, arama butonuna taşındı).
@@ -474,10 +490,163 @@ class _PlacesHeader extends ConsumerWidget {
                   categoryChipKeyBuilder,
                 ),
               ),
+              // Alt kategori yönlendirici bar — kategori seçiliyken ve o
+              // kategorinin alt kategorisi varken görünür. Kullanıcıya
+              // filtrelenebileceğini gösterir ve dokununca filtre menüsünü
+              // açar (keşfedilebilirlik: alt kategori aksi halde menüde gizli).
+              _buildSubcategoryHintBar(context, ref, state, notifier, isDark),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Alt kategori yönlendirici/özet bar'ı.
+  ///
+  /// **Neden var?** Alt kategori filtresi, arama yanındaki filtre menüsünün
+  /// içinde — kullanıcı orada olduğunu tahmin edemez. Bu bar, bir kategori
+  /// seçilip o kategorinin alt kategorileri olduğunda beliriyor; hem "burada
+  /// daraltabilirsin" ipucu veriyor hem dokununca aynı menüyü açıyor. Seçim
+  /// yapıldığında özet + "Temizle"ye dönüşüyor.
+  Widget _buildSubcategoryHintBar(
+    BuildContext context,
+    WidgetRef ref,
+    PlacesState state,
+    PlacesNotifier notifier,
+    bool isDark,
+  ) {
+    final available = notifier.availableSubcategories();
+    final hasSubs = available.isNotEmpty;
+    final selectedCount = state.selectedSubcategorySlugs.length;
+    final hasSelection = selectedCount > 0;
+    final primary = Theme.of(context).colorScheme.primary;
+
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 220),
+      curve: Curves.easeOutCubic,
+      alignment: Alignment.topCenter,
+      child: !hasSubs
+          ? const SizedBox(width: double.infinity)
+          : Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => _showFilterMenu(context, ref, state, notifier),
+                  borderRadius: BorderRadius.circular(12),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 9),
+                    decoration: BoxDecoration(
+                      color: hasSelection
+                          ? primary.withValues(alpha: isDark ? 0.20 : 0.10)
+                          : (isDark
+                              ? Colors.white.withValues(alpha: 0.05)
+                              : primary.withValues(alpha: 0.055)),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: hasSelection
+                            ? primary.withValues(alpha: isDark ? 0.55 : 0.40)
+                            : primary.withValues(alpha: isDark ? 0.30 : 0.18),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.tune_rounded, size: 17, color: primary),
+                        const SizedBox(width: 9),
+                        Expanded(
+                          child: Text(
+                            hasSelection
+                                ? context.l10n.placesSubcategoriesSelected(
+                                    selectedCount)
+                                : context.l10n.placesSubcategoryFilterHint,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: hasSelection
+                                  ? FontWeight.w600
+                                  : FontWeight.w500,
+                              color: hasSelection
+                                  ? primary
+                                  : (isDark
+                                      ? Colors.white70
+                                      : const Color(0xFF3A3A4E)),
+                              letterSpacing: -0.1,
+                            ),
+                          ),
+                        ),
+                        if (hasSelection)
+                          // Seçim varken bar'ın kendisi menüyü açar; "Temizle"
+                          // ayrı dokunuş — GestureDetector ile InkWell'i by-pass.
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: notifier.clearSubcategories,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                context.l10n.btnClear,
+                                style: TextStyle(
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w700,
+                                  color: primary,
+                                ),
+                              ),
+                            ),
+                          )
+                        else
+                          Icon(Icons.chevron_right_rounded,
+                              size: 20,
+                              color: primary.withValues(alpha: 0.8)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+    );
+  }
+
+  /// Filtre butonu menüsü: sıralama + (kategori seçiliyse) alt kategoriler.
+  ///
+  /// Alt kategori bölümü, sıralama seçeneklerinin altında ek bölüm olarak
+  /// görünür (kullanıcı talebi: mevcut filtre butonunun altına ek kategori).
+  /// Seçim anında uygulanır; liste menü arkasında canlı güncellenir.
+  void _showFilterMenu(
+    BuildContext context,
+    WidgetRef ref,
+    PlacesState state,
+    PlacesNotifier notifier,
+  ) {
+    final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    final subcategoryOptions = notifier
+        .availableSubcategories()
+        .map((o) => AppMenuMultiOption(
+              value: o.slug,
+              label: SubcategoryLabels.label(o.slug, isTr: isTr),
+            ))
+        .toList();
+
+    showAppSortMenu<PlaceSortMode>(
+      context: context,
+      anchorKey: sortMenuKey!,
+      current: state.sortMode,
+      values: PlaceSortMode.values,
+      labelOf: (m) => placeSortLabel(context.l10n, m),
+      onSelected: notifier.setSortMode,
+      multiSectionTitle: context.l10n.lblSubcategories,
+      multiOptions: subcategoryOptions,
+      multiSelected: state.selectedSubcategorySlugs,
+      onMultiToggled: (slug) {
+        // mobile_analytics_todo.md §2.6 — filter_applied
+        ref.read(analyticsServiceProvider).track(
+          AnalyticsEvents.filterApplied,
+          properties: {'scope': 'places_subcategory', 'value': slug},
+        );
+        notifier.toggleSubcategory(slug);
+      },
+      onMultiCleared: notifier.clearSubcategories,
+      clearLabel: context.l10n.btnClear,
     );
   }
 

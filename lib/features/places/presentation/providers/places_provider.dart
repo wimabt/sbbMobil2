@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/services/discovery_service.dart';
+import '../../../../core/utils/subcategory_labels.dart';
 import '../../../../core/services/location_service.dart';
 import '../../../../core/services/place_id_resolver.dart';
 import '../../../../core/utils/distance_helper.dart';
@@ -57,6 +58,7 @@ class PlacesState {
     this.places = const [], // Kategoriye göre filtrelenmiş place'ler
     this.filteredPlaces = const [], // Arama + kategori filtrelenmiş place'ler
     this.selectedCategory = 'all',
+    this.selectedSubcategorySlugs = const {},
     this.searchQuery = '',
     this.categories = const [],
     this.filteredCategories = const [], // Arama sonuçlarına göre filtrelenmiş kategoriler
@@ -72,6 +74,9 @@ class PlacesState {
   final List<Place> places; // Kategoriye göre filtrelenmiş
   final List<Place> filteredPlaces; // Arama + kategori filtrelenmiş
   final String selectedCategory;
+  /// Seçili alt kategori slug'ları (çoklu seçim, kanonik slug).
+  /// Boş küme = alt kategori filtresi yok. Kategori değişince sıfırlanır.
+  final Set<String> selectedSubcategorySlugs;
   final String searchQuery;
   final List<PlaceCategory> categories;
   final List<PlaceCategory> filteredCategories; // Arama sonuçlarına göre filtrelenmiş kategoriler
@@ -87,6 +92,7 @@ class PlacesState {
     List<Place>? places,
     List<Place>? filteredPlaces,
     String? selectedCategory,
+    Set<String>? selectedSubcategorySlugs,
     String? searchQuery,
     List<PlaceCategory>? categories,
     List<PlaceCategory>? filteredCategories,
@@ -102,6 +108,8 @@ class PlacesState {
       places: places ?? this.places,
       filteredPlaces: filteredPlaces ?? this.filteredPlaces,
       selectedCategory: selectedCategory ?? this.selectedCategory,
+      selectedSubcategorySlugs:
+          selectedSubcategorySlugs ?? this.selectedSubcategorySlugs,
       searchQuery: searchQuery ?? this.searchQuery,
       categories: categories ?? this.categories,
       filteredCategories: filteredCategories ?? this.filteredCategories,
@@ -270,8 +278,14 @@ class PlacesNotifier extends Notifier<PlacesState> {
       
       // Liste görünümü için gerekli alanlar (rating ve review_count ileride eklenecek)
       // `points`: CMS’den kampanya/puan önizlemesi (giriş olmadan da görülebilir)
+      // `subcategories`: harita alt kategori filtresi bu listeden beslenir
+      // (MapScreen placesProvider.allPlaces'i kullanır — alan burada yoksa
+      // haritada alt kategori chip'leri boş kalır).
+      // ── ESKİ (alt kategori filtresi öncesi) — geri dönüş için saklandı ──
+      // const listFields =
+      //     'id,name,description,category_id,lat,lng,image_url,thumbnail_url,featured,points';
       const listFields =
-          'id,name,description,category_id,lat,lng,image_url,thumbnail_url,featured,points';
+          'id,name,description,category_id,subcategories,lat,lng,image_url,thumbnail_url,featured,points';
 
       while (hasMore) {
         final response = await _repository.getPlaces(
@@ -371,6 +385,19 @@ class PlacesNotifier extends Notifier<PlacesState> {
         categoryFiltered = state.allPlaces.where((place) {
           return place.categoryId?.toString() == selectedCat.id;
         }).toList();
+
+        // Alt kategori filtresi — yalnızca bir kategori seçiliyken anlamlı.
+        // Çoklu seçim OR mantığı: seçili alt kategorilerden en az birine
+        // sahip place'ler kalır. Place'in ham subcategory değerleri kanonik
+        // slug'a çevrilerek karşılaştırılır (CMS'te slug yerine ham ad
+        // girilmiş kayıtlar var: "Sivil Yapılar" gibi).
+        if (state.selectedSubcategorySlugs.isNotEmpty) {
+          categoryFiltered = categoryFiltered.where((place) {
+            return place.subcategories
+                .map(SubcategoryLabels.canonicalSlug)
+                .any(state.selectedSubcategorySlugs.contains);
+          }).toList();
+        }
       }
     }
 
@@ -466,14 +493,67 @@ class PlacesNotifier extends Notifier<PlacesState> {
   /// Kategori değiştir (client-side filtreleme)
   void setCategory(String categoryId) {
     if (state.selectedCategory == categoryId) return;
-    state = state.copyWith(selectedCategory: categoryId);
-    
+    // Kategori değişince alt kategori seçimi anlamını yitirir — sıfırla.
+    state = state.copyWith(
+      selectedCategory: categoryId,
+      selectedSubcategorySlugs: const {},
+    );
+
     // Eğer place'ler yüklenmemişse API'den çek, yoksa sadece filtrele
     if (state.allPlaces.isEmpty) {
       loadPlaces(refresh: false);
     } else {
       _applyFilters();
     }
+  }
+
+  /// Alt kategori seçimini toggle et (çoklu seçim).
+  void toggleSubcategory(String slug) {
+    final next = Set<String>.of(state.selectedSubcategorySlugs);
+    if (!next.remove(slug)) next.add(slug);
+    state = state.copyWith(selectedSubcategorySlugs: next);
+    _applyFilters();
+  }
+
+  /// Tüm alt kategori seçimlerini temizle.
+  void clearSubcategories() {
+    if (state.selectedSubcategorySlugs.isEmpty) return;
+    state = state.copyWith(selectedSubcategorySlugs: const {});
+    _applyFilters();
+  }
+
+  /// Seçili kategorinin alt kategori seçenekleri (slug + place sayısı).
+  ///
+  /// CMS kategori yanıtında alt kategori listesi olmadığı için yüklü
+  /// place'lerden distinct slug toplanır — yalnız içinde gerçekten place
+  /// olan alt kategoriler döner. Görünen ad eşlemesi (TR/EN) UI tarafında
+  /// `SubcategoryLabels.label` ile yapılır.
+  List<({String slug, int count})> availableSubcategories() {
+    if (state.selectedCategory == 'all' || state.selectedCategory.isEmpty) {
+      return const [];
+    }
+    final selectedCat = state.categories.firstWhere(
+      (cat) =>
+          cat.id == state.selectedCategory ||
+          cat.label == state.selectedCategory,
+      orElse: () => const PlaceCategory(id: '', label: ''),
+    );
+    if (selectedCat.id.isEmpty || selectedCat.id == 'all') return const [];
+
+    final counts = <String, int>{};
+    for (final place in state.allPlaces) {
+      if (place.categoryId?.toString() != selectedCat.id) continue;
+      for (final raw in place.subcategories) {
+        final slug = SubcategoryLabels.canonicalSlug(raw);
+        if (slug.isEmpty) continue;
+        counts[slug] = (counts[slug] ?? 0) + 1;
+      }
+    }
+    final options = counts.entries
+        .map((e) => (slug: e.key, count: e.value))
+        .toList()
+      ..sort((a, b) => b.count.compareTo(a.count));
+    return options;
   }
 
   /// Arama yap (client-side filtreleme)
